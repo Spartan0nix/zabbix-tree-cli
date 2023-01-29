@@ -1,0 +1,35 @@
+services:
+  postgres:
+    image: docker.io/postgres:13.8-alpine3.16
+    container_name: postgres
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=zabbix
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=zabbix
+    volumes:
+      - postgres:/var/lib/postgresql/data
+  zabbix-server:
+    image: docker.io/zabbix/zabbix-server-pgsql:alpine-6.0-latest
+    container_name: zabbix-server
+    restart: unless-stopped
+    environment:
+      - DB_SERVER_HOST=postgres
+      - POSTGRES_USER=zabbix
+      - POSTGRES_PASSWORD=password
+  zabbix-web:
+    image: docker.io/zabbix/zabbix-web-nginx-pgsql:alpine-6.0-latest
+    container_name: zabbix-web
+    ports:
+      - "8080:8080"
+      # - "8443:8443"
+    restart: unless-stopped
+    environment:
+      - DB_SERVER_HOST=postgres
+      - POSTGRES_USER=zabbix
+      - POSTGRES_PASSWORD=password
+      - ZBX_SERVER_HOST=zabbix-server
+      - PHP_TZ=Europe/Paris
+volumes:
+  postgres:
+  
