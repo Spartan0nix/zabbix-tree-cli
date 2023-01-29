@@ -2,9 +2,9 @@
 
 ## Table of contents
 
-### [Description](#Description)
-### [Zabbix-nested-groups](#Zabbix-nested-groups)
-### [Usage](#Usage)
+- [Description](#Description)
+- [Zabbix-nested-groups](#Zabbix-nested-groups)
+- [Usage](#Usage)
 
 
 ## Description
