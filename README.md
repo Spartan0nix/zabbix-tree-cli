@@ -23,4 +23,19 @@ For example :
 
 ## Usage
 
-Comming soon ...
+### Required environment variables
+
+To use this tool, you will need to set up the following variables :
+- ZABBIX_URL
+- ZABBIX_USER
+- ZABBIX_PWD
+
+You can simply export the variable in your current shell :
+```bash
+export ZABBIX_URL="http://<zabbix-server-IP-or-DNS>:<port>/zabbix/api_jsonrpc.php"
+export ZABBIX_USER="some-zabbix-user"
+export ZABBIX_PWD="some-zabbix-user-password"
+```
+
+Adding this configuration to your ~/.bashrc or ~/.zshrc will make the configuration persistent between shell.
+

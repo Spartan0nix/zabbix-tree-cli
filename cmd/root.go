@@ -7,12 +7,6 @@ import (
 	"github.com/spf13/cobra"
 )
 
-const (
-	ZABBIX_URL  = "http://localhost:8080/api_jsonrpc.php"
-	ZABBIX_USER = "Admin"
-	ZABBIX_PWD  = "zabbix"
-)
-
 func init() {
 	rootCmd.AddCommand(hostGroupCmd)
 }

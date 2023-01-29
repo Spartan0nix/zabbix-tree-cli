@@ -14,6 +14,12 @@ import (
 	"github.com/spf13/cobra"
 )
 
+type env struct {
+	ZabbixUrl  string
+	ZabbixUser string
+	ZabbixPwd  string
+}
+
 // This command allow to interact with Zabbix HostGroups
 var hostGroupCmd = &cobra.Command{
 	Use:   "host-group",
@@ -26,7 +32,13 @@ var hostGroupCmd = &cobra.Command{
 			os.Exit(1)
 		}
 
-		RunHostGroup(Format, File)
+		env, err := getEnvironmentVariables()
+		if err != nil {
+			fmt.Println(err)
+			os.Exit(1)
+		}
+
+		RunHostGroup(env, Format, File)
 	},
 }
 
@@ -34,6 +46,23 @@ func init() {
 	hostGroupCmd.Flags().StringVarP(&Format, "format", "o", "", "output format")
 	hostGroupCmd.Flags().StringVarP(&File, "file", "f", "", "output format")
 	hostGroupCmd.MarkFlagRequired("format")
+}
+
+func getEnvironmentVariables() (*env, error) {
+	vars := env{}
+	if vars.ZabbixUrl = os.Getenv("ZABBIX_URL"); vars.ZabbixUrl == "" {
+		return nil, fmt.Errorf("required environment variable 'ZABBIX_URL' is not set")
+	}
+
+	if vars.ZabbixUser = os.Getenv("ZABBIX_USER"); vars.ZabbixUser == "" {
+		return nil, fmt.Errorf("required environment variable 'ZABBIX_USER' is not set")
+	}
+
+	if vars.ZabbixPwd = os.Getenv("ZABBIX_PWD"); vars.ZabbixPwd == "" {
+		return nil, fmt.Errorf("required environment variable 'ZABBIX_PWD' is not set")
+	}
+
+	return &vars, nil
 }
 
 // checkFileFlag is used to check if the given format requires the 'file' flag to be set.
@@ -143,8 +172,8 @@ func initTree(format string) (*tree.TreeNode, *graphviz.Graphviz, *cgraph.Graph,
 // 3. Retrieve all HostGroups from the Zabbix Server
 // 4. Generate a complete TreeNode for each groups
 // 5. Render the TreeNode using the given format
-func RunHostGroup(format string, file string) {
-	client, err := initApi(ZABBIX_URL, ZABBIX_USER, ZABBIX_PWD)
+func RunHostGroup(env *env, format string, file string) {
+	client, err := initApi(env.ZabbixUrl, env.ZabbixUser, env.ZabbixPwd)
 	if err != nil {
 		log.Fatalf("Error when initializing zabbix client.\nReason : %v", err)
 	}
