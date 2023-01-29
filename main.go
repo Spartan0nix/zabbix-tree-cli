@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/Spartan0nix/zabbix-usergroup-tree/cmd"
+	"github.com/Spartan0nix/zabbix-tree-cli/cmd"
 )
 
 func main() {

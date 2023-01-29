@@ -3,7 +3,7 @@ package render
 import (
 	"fmt"
 
-	"github.com/Spartan0nix/zabbix-usergroup-tree/internal/tree"
+	"github.com/Spartan0nix/zabbix-tree-cli/internal/tree"
 )
 
 // OutputInShell is used to print the content of a treeNode in the shell

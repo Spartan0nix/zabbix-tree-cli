@@ -4,7 +4,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/Spartan0nix/zabbix-usergroup-tree/internal/tree"
+	"github.com/Spartan0nix/zabbix-tree-cli/internal/tree"
 )
 
 func TestOutputInShell(t *testing.T) {

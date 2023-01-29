@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"os"
 
-	"github.com/Spartan0nix/zabbix-usergroup-tree/internal/tree"
+	"github.com/Spartan0nix/zabbix-tree-cli/internal/tree"
 )
 
 // OutputAsJson is used to render a TreeNode to a file in json

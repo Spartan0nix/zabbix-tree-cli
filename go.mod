@@ -1,4 +1,4 @@
-module github.com/Spartan0nix/zabbix-usergroup-tree
+module github.com/Spartan0nix/zabbix-tree-cli
 
 go 1.19
 

@@ -3,7 +3,7 @@ package render
 import (
 	"testing"
 
-	"github.com/Spartan0nix/zabbix-usergroup-tree/internal/tree"
+	"github.com/Spartan0nix/zabbix-tree-cli/internal/tree"
 )
 
 func TestOutputAsJson(t *testing.T) {

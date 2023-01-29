@@ -6,9 +6,9 @@ import (
 	"os"
 
 	zabbixgosdk "github.com/Spartan0nix/zabbix-go-sdk"
-	"github.com/Spartan0nix/zabbix-usergroup-tree/internal/api"
-	"github.com/Spartan0nix/zabbix-usergroup-tree/internal/render"
-	"github.com/Spartan0nix/zabbix-usergroup-tree/internal/tree"
+	"github.com/Spartan0nix/zabbix-tree-cli/internal/api"
+	"github.com/Spartan0nix/zabbix-tree-cli/internal/render"
+	"github.com/Spartan0nix/zabbix-tree-cli/internal/tree"
 	"github.com/goccy/go-graphviz"
 	"github.com/goccy/go-graphviz/cgraph"
 	"github.com/spf13/cobra"
