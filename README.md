@@ -9,7 +9,7 @@
 
 ## Description
 
-This CLI tool is used to help administrator keeps track of their Zabbix Host Groups structure by render a graphical output (PNG, JPG, SVG, json, shell).
+This CLI tool is used to help administrator keeps track of their Zabbix Host Groups structure by rendering a graphical output (PNG, JPG, SVG, json, shell).
 
 ## Zabbix-nested-groups
 
