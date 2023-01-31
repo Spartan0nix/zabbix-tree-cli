@@ -3,7 +3,7 @@ package api
 import (
 	"fmt"
 
-	zabbixgosdk "github.com/Spartan0nix/zabbix-go-sdk"
+	zabbixgosdk "github.com/Spartan0nix/zabbix-go-sdk/v2"
 )
 
 // InitService is used to return a new ZabbixService after executing connectivity test.

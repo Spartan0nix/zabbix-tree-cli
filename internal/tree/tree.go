@@ -3,7 +3,7 @@ package tree
 import (
 	"strings"
 
-	zabbixgosdk "github.com/Spartan0nix/zabbix-go-sdk"
+	zabbixgosdk "github.com/Spartan0nix/zabbix-go-sdk/v2"
 	"github.com/goccy/go-graphviz/cgraph"
 )
 

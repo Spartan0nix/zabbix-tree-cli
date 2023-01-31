@@ -5,7 +5,7 @@ import (
 	"log"
 	"os"
 
-	zabbixgosdk "github.com/Spartan0nix/zabbix-go-sdk"
+	zabbixgosdk "github.com/Spartan0nix/zabbix-go-sdk/v2"
 	"github.com/Spartan0nix/zabbix-tree-cli/internal/api"
 	"github.com/Spartan0nix/zabbix-tree-cli/internal/render"
 	"github.com/Spartan0nix/zabbix-tree-cli/internal/tree"
