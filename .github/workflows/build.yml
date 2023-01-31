@@ -19,9 +19,9 @@ jobs:
       run: make build-linux
       shell: bash
     
-    - name: Build binaries [windows-adm64]
-      run: make build-windows
-      shell: bash
+    # - name: Build binaries [windows-adm64]
+    #   run: make build-windows
+    #   shell: bash
     
     - name: Upload binaries
       uses: svenstaro/upload-release-action@v2
