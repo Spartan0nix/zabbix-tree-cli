@@ -18,15 +18,24 @@ jobs:
       with:
         go-version: 1.19
 
-    - name: Build binaries [linux-adm64]
-      run: make build-linux
-      shell: bash
-    
+    # - name: Build binaries [linux-adm64]
+    #   run: make build-linux
+    #   shell: bash
+
+    - name: Build binaries
+      uses: goreleaser/goreleaser-action@v4.2.0
+      with:
+        version: latest
+        args: release --rm-dist
+        workdir: build
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
     - name: Upload binaries
       uses: svenstaro/upload-release-action@2.4.0
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
-        file: build/zabbix-tree-cli*
+        file: build/*
         tag: ${{ github.ref }}
         overwrite: true
         file_glob: true
