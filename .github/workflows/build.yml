@@ -26,8 +26,7 @@ jobs:
       uses: goreleaser/goreleaser-action@v4.2.0
       with:
         version: latest
-        args: release --config ../build/goreleaser.yml --clean
-        workdir: build
+        args: release --config build/goreleaser.yml --clean
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -35,7 +34,7 @@ jobs:
       uses: svenstaro/upload-release-action@2.4.0
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
-        file: build/zabbix-tree-cli_*
+        file: dist/zabbix-tree-cli_*
         tag: ${{ github.ref }}
         overwrite: true
         file_glob: true
