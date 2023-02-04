@@ -8,7 +8,7 @@ builds:
     goarch:
       - amd64
     id: "zabbix-tree-cli"
-    dir: ../
-    main: ../
+    dir: .
+    main: .
     ldflags:
       - -extldflags "-static"
