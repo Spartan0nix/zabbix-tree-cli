@@ -18,10 +18,6 @@ jobs:
       with:
         go-version: 1.19
 
-    # - name: Build binaries [linux-adm64]
-    #   run: make build-linux
-    #   shell: bash
-
     - name: Build binaries
       uses: goreleaser/goreleaser-action@v4.2.0
       with:
