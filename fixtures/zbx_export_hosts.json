@@ -1,0 +1,150 @@
+{
+    "zabbix_export": {
+        "version": "6.0",
+        "date": "2023-02-04T12:45:40Z",
+        "groups": [
+            {
+                "uuid": "0687b6d8be0a4a03886a450ab8a97219",
+                "name": "Corp"
+            },
+            {
+                "uuid": "522591aa2843416c9bf7f799a9189f06",
+                "name": "Corp/EastEurope"
+            },
+            {
+                "uuid": "fd3cbebc77e34063bc7a0857dae306b6",
+                "name": "Corp/EastEurope/Network-devices"
+            },
+            {
+                "uuid": "a602a611c94c47a89933fcc69d68163c",
+                "name": "Corp/EastEurope/Servers"
+            },
+            {
+                "uuid": "9b2f9f16ef16404a94e87fefdf2920a3",
+                "name": "Corp/EastEurope/Storage"
+            },
+            {
+                "uuid": "3f962b3de33946329a304fe6822b7435",
+                "name": "Corp/EastEurope/Virtual-machines"
+            },
+            {
+                "uuid": "85955331b21a43d3bcba7537f523c88e",
+                "name": "Corp/NorthEurope"
+            },
+            {
+                "uuid": "16da2d093730461ba36e0a7c0224faef",
+                "name": "Corp/NorthEurope/Network-devices"
+            },
+            {
+                "uuid": "c7d205b8c05d43d29cb30f26bef1b488",
+                "name": "Corp/NorthEurope/Servers"
+            },
+            {
+                "uuid": "bd021fee910349aebb9c1f30f518dd3f",
+                "name": "Corp/NorthEurope/Site1"
+            },
+            {
+                "uuid": "48de21ed23104370a4b60e94703c92fc",
+                "name": "Corp/NorthEurope/Site1/Network-devices"
+            },
+            {
+                "uuid": "733138e024204e11ab2f026c639972f4",
+                "name": "Corp/NorthEurope/Site1/Servers"
+            },
+            {
+                "uuid": "78737c80f1eb4f04a0fa63d989082b2c",
+                "name": "Corp/NorthEurope/Site1/Virtual-machines"
+            },
+            {
+                "uuid": "8170de9779c64aaabbf750540499b854",
+                "name": "Corp/NorthEurope/Site2"
+            },
+            {
+                "uuid": "bb69e0a005104c5284dd8b844baa78d8",
+                "name": "Corp/NorthEurope/Site2/Network-devices"
+            },
+            {
+                "uuid": "003646df10ca46b085e56dd021e4d8d3",
+                "name": "Corp/NorthEurope/Site2/Servers"
+            },
+            {
+                "uuid": "14afdf262af6488480d55cc0674127c8",
+                "name": "Corp/NorthEurope/Site2/Virtual-machines"
+            },
+            {
+                "uuid": "15482bbc6167409b9b647a5b59655bb3",
+                "name": "Corp/NorthEurope/Storage"
+            },
+            {
+                "uuid": "f5b71d796f69442280b6d9ba23fac3df",
+                "name": "Corp/NorthEurope/Virtual-machines"
+            }
+        ],
+        "hosts": [
+            {
+                "host": "fixture-host",
+                "name": "fixture-host",
+                "groups": [
+                    {
+                        "name": "Corp"
+                    },
+                    {
+                        "name": "Corp/EastEurope"
+                    },
+                    {
+                        "name": "Corp/EastEurope/Network-devices"
+                    },
+                    {
+                        "name": "Corp/EastEurope/Servers"
+                    },
+                    {
+                        "name": "Corp/EastEurope/Storage"
+                    },
+                    {
+                        "name": "Corp/EastEurope/Virtual-machines"
+                    },
+                    {
+                        "name": "Corp/NorthEurope"
+                    },
+                    {
+                        "name": "Corp/NorthEurope/Network-devices"
+                    },
+                    {
+                        "name": "Corp/NorthEurope/Servers"
+                    },
+                    {
+                        "name": "Corp/NorthEurope/Site1"
+                    },
+                    {
+                        "name": "Corp/NorthEurope/Site1/Network-devices"
+                    },
+                    {
+                        "name": "Corp/NorthEurope/Site1/Servers"
+                    },
+                    {
+                        "name": "Corp/NorthEurope/Site1/Virtual-machines"
+                    },
+                    {
+                        "name": "Corp/NorthEurope/Site2"
+                    },
+                    {
+                        "name": "Corp/NorthEurope/Site2/Network-devices"
+                    },
+                    {
+                        "name": "Corp/NorthEurope/Site2/Servers"
+                    },
+                    {
+                        "name": "Corp/NorthEurope/Site2/Virtual-machines"
+                    },
+                    {
+                        "name": "Corp/NorthEurope/Storage"
+                    },
+                    {
+                        "name": "Corp/NorthEurope/Virtual-machines"
+                    }
+                ],
+                "inventory_mode": "DISABLED"
+            }
+        ]
+    }
+}
