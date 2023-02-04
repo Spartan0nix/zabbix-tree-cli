@@ -1,4 +1,4 @@
-package app
+package cmd
 
 import (
 	"testing"
@@ -6,8 +6,14 @@ import (
 	"github.com/Spartan0nix/zabbix-tree-cli/internal/config"
 )
 
+const (
+	URL  = "http://localhost:4444/api_jsonrpc.php"
+	USER = "Admin"
+	PWD  = "zabbix"
+)
+
 func TestRunHostGroupWithGraph(t *testing.T) {
-	RunHostGroup(&config.Env{
+	runHostGroup(&config.Env{
 		ZabbixUrl:  URL,
 		ZabbixUser: USER,
 		ZabbixPwd:  PWD,
@@ -15,7 +21,7 @@ func TestRunHostGroupWithGraph(t *testing.T) {
 }
 
 func TestRunHostGroupWithoutGraph(t *testing.T) {
-	RunHostGroup(&config.Env{
+	runHostGroup(&config.Env{
 		ZabbixUrl:  URL,
 		ZabbixUser: USER,
 		ZabbixPwd:  PWD,
