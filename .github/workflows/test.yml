@@ -19,7 +19,3 @@ jobs:
     - name: Run test
       run: make coverage
       shell: bash
-    
-    - name: Remove render files
-      run: make rm-test-files
-      shell: bash
