@@ -1,0 +1,17 @@
+# .goreleaser.yaml
+before:
+  hooks:
+    - go mod tidy
+builds:
+  - goos:
+      - linux
+    goarch:
+      - amd64
+    id: zabbix_tree_cli
+    dir: .
+    main: .
+    ldflags:
+      - -extldflags "-static"
+archives:
+  -
+    id: zabbix-tree-cli
