@@ -13,29 +13,32 @@ import (
 
 // This command allow to interact with Zabbix HostGroups and runder a graphical output
 var hostGroupCmd = &cobra.Command{
-	Use:   "host-group",
-	Short: "Render a Zabbix host groups graph.",
-	Run: func(cmd *cobra.Command, args []string) {
-		err := config.CheckFileFlag(Format, File)
+	Use:       "host-group [png|jpg|svg|json|shell]",
+	Short:     "Render a graph for host groups",
+	ValidArgs: []string{"png", "jpg", "svg", "json", "shell"},
+	Args:      cobra.MatchAll(cobra.ExactArgs(1), cobra.OnlyValidArgs),
+
+	PreRun: func(cmd *cobra.Command, args []string) {
+		err := config.CheckFileFlag(args[0], File)
 		if err != nil {
 			fmt.Println(err)
 			os.Exit(1)
 		}
+	},
 
+	Run: func(cmd *cobra.Command, args []string) {
 		env, err := config.GetEnvironmentVariables()
 		if err != nil {
 			fmt.Println(err)
 			os.Exit(1)
 		}
 
-		runHostGroup(env, Format, File)
+		runHostGroup(env, args[0], File)
 	},
 }
 
 func init() {
-	hostGroupCmd.Flags().StringVarP(&Format, "format", "o", "", "output format")
 	hostGroupCmd.Flags().StringVarP(&File, "file", "f", "", "output format")
-	hostGroupCmd.MarkFlagRequired("format")
 }
 
 // RunHostGroup is the main entrypoint for the 'host-group' command.
