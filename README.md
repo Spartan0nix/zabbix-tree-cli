@@ -10,7 +10,7 @@
 - [Description](#description)
 - [Zabbix-nested-groups](#zabbix-nested-groups)
 - [Usage](#usage)
-  - [Fixtures](#fixtures)
+  - [Fixtures (optional)](#fixtures-(optional))
   - [Required environment variables](#required-environment-variables)
   - [Install](#install)
   - [Run](#run)
