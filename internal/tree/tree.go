@@ -106,7 +106,7 @@ func (t *TreeNode) GenerateHostGroupTree(groups []*zabbixgosdk.HostGroup, graph 
 
 	// Loop over each HostGroup
 	// Zabbix support nested group by using '/' between each part
-	// For exemple : Templates/Databases/MySQL
+	// For example : Templates/Databases/MySQL
 	// -> Templates
 	// 		-> Databases
 	// 			-> MySQL

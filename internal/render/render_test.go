@@ -88,7 +88,7 @@ func TestRenderOutputSVG(t *testing.T) {
 func TestRenderOutputShell(t *testing.T) {
 	tree := initTree()
 
-	// Prevent shell ouput
+	// Prevent shell output
 	// We only when error to be returned
 	os.Stdout = nil
 

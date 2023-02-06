@@ -15,7 +15,7 @@ func TestOutputInShell(t *testing.T) {
 		},
 	}
 
-	// Prevent shell ouput
+	// Prevent shell output
 	// We only when error to be returned
 	os.Stdout = nil
 
