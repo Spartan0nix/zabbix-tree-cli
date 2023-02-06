@@ -62,25 +62,40 @@ Adding this configuration to your ~/.bashrc or ~/.zshrc will make the configurat
 Each time a new release is created, the cli is compiled and the resultant binaries are pushed as assets.
 Currently, only the linux/amd64 arch is supported (due to the 'go-graphviz' module build restrictions).
 
-For example :
-```bash
-# Retrieve the archive for release v1.0.0
-wget https://github.com/Spartan0nix/zabbix-tree-cli/releases/download/v1.0.0/zabbix-tree-cli_1.0.0_linux_amd64.tar.gz
-# Remove previous install
-sudo rm -r /usr/local/zabbix-tree-cli
-# Create a folder to store the binary
-sudo mkdir /usr/local/zabbix-tree-cli
-# Extract the archive
-sudo tar -C /usr/local/zabbix-tree-cli -xzf zabbix-tree-cli_1.0.0_linux_amd64.tar.gz
-# Update your PATH
-export PATH=$PATH:/usr/local/zabbix-tree-cli
-```
+1. Script (available in the *scripts* folder):
+
+    ```bash
+    bash scripts/install.sh
+    ```
+
+2. Manually :
+
+    ```bash
+    # Retrieve the archive for release v1.0.0
+    wget https://github.com/Spartan0nix/zabbix-tree-cli/releases/download/v1.0.0/zabbix-tree-cli_1.0.0_linux_amd64.tar.gz
+    # Remove previous install
+    sudo rm -r /usr/local/zabbix-tree-cli
+    # Create a folder to store the binary
+    sudo mkdir /usr/local/zabbix-tree-cli
+    # Extract the archive
+    sudo tar -C /usr/local/zabbix-tree-cli -xzf zabbix-tree-cli_1.0.0_linux_amd64.tar.gz
+    # Update your PATH
+    export PATH=$PATH:/usr/local/zabbix-tree-cli
+    ```
 
 ### Uninstall
 
-```bash
-sudo rm -r /usr/local/zabbix-tree-cli
-```
+1. Script (available in the *scripts* folder):
+
+    ```bash
+    bash scripts/uninstall.sh
+    ```
+
+2. Manually :
+
+    ```bash
+    sudo rm -r /usr/local/zabbix-tree-cli
+    ```
 
 ### Run
 ```
