@@ -7,15 +7,20 @@
 
 ## Table of contents
 
-- [Description](#Description)
-- [Zabbix-nested-groups](#Zabbix-nested-groups)
-- [Usage](#Usage)
+- [Description](#description)
+- [Zabbix-nested-groups](#zabbix-nested-groups)
+- [Usage](#usage)
+  - [Fixtures](#fixtures)
+  - [Required environment variables](#required-environment-variables)
+  - [Install](#install)
+  - [Run](#run)
+  - [Completion](#completion)
 
 ## Description
 
 This CLI tool is used to help administrator keeps track of their Zabbix Host Groups structure by rendering a graphical output (PNG, JPG, SVG, json, shell).
 
-## Zabbix-nested-groups
+## Zabbix nested groups
 
 Zabbix supports nested host groups by separating each part in the host groups with '/'.
 For example :
@@ -95,40 +100,42 @@ Flags:
 Use " [command] --help" for more information about a command.
 ```
 
-### Zsh completion
+### Completion
 
-If shell completion is not enabled in your current shell (oh-my-zsh not running for example), add the following config to your .zshrc :
+1. Zsh completion
 
-```bash
-echo "autoload -U compinit; compinit" >> ~/.zshrc
-```
+    If shell completion is not enabled in your current shell (oh-my-zsh not running for example), add the following config to your .zshrc :
 
-- To load completions only in the current shell :
-```bash
-source <(zabbix-tree-cli completion zsh); compdef _zabbix-tree-cli zabbix-tree-cli
-```
+    ```bash
+    echo "autoload -U compinit; compinit" >> ~/.zshrc
+    ```
 
-- To make the configuration persistent between shells :
-```bash
-zabbix-tree-cli completion zsh > "${fpath[1]}/_zabbix-tree-cli"
-```
+    - To load completions only in the current shell :
+    ```bash
+    source <(zabbix-tree-cli completion zsh); compdef _zabbix-tree-cli zabbix-tree-cli
+    ```
 
-### Bash completion
+    - To make the configuration persistent between shells :
+    ```bash
+    zabbix-tree-cli completion zsh > "${fpath[1]}/_zabbix-tree-cli"
+    ```
 
-To use completion scripts with bash, you will need to install the "bash-completion" package following your package manager recommendations.
+2. Bash completion
+
+    To use completion scripts with bash, you will need to install the "bash-completion" package following your package manager recommendations.
 
 
-- To load completions only in the current shell
-```bash
-source <(zabbix-tree-cli completion bash)
-```
+    - To load completions only in the current shell
+    ```bash
+    source <(zabbix-tree-cli completion bash)
+    ```
 
-- To make the configuration persistent between shells :
-```bash
-zabbix-tree-cli completion bash > /etc/bash_completion.d/zabbix-tree-cli
-```
+    - To make the configuration persistent between shells :
+    ```bash
+    zabbix-tree-cli completion bash > /etc/bash_completion.d/zabbix-tree-cli
+    ```
 
-### Other completions
+3. Other completions
 
-- Completion for fish haven't been tested.
-- Binaries for windows can't be compiled.
+    - Completion for fish haven't been tested.
+    - Binaries for windows can't be compiled.
