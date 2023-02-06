@@ -89,3 +89,41 @@ Flags:
 
 Use " [command] --help" for more information about a command.
 ```
+
+### Zsh completion
+
+If shell completion is not enabled in your current shell (oh-my-zsh not running for example), add the following config to your .zshrc :
+
+```bash
+echo "autoload -U compinit; compinit" >> ~/.zshrc
+```
+
+- To load completions only in the current shell :
+```bash
+source <(zabbix-tree-cli completion zsh); compdef _zabbix-tree-cli zabbix-tree-cli
+```
+
+- To make the configuration persistent between shells :
+```bash
+zabbix-tree-cli completion zsh > "${fpath[1]}/_zabbix-tree-cli"
+```
+
+### Bash completion
+
+To use completion scripts with bash, you will need to install the "bash-completion" package following your package manager recommendations.
+
+
+- To load completions only in the current shell
+```bash
+source <(zabbix-tree-cli completion bash)
+```
+
+- To make the configuration persistent between shells :
+```bash
+zabbix-tree-cli completion bash > /etc/bash_completion.d/zabbix-tree-cli
+```
+
+### Other completions
+
+- Completion for fish haven't been tested.
+- Binaries for windows can't be compiled.
