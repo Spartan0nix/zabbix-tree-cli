@@ -1,5 +1,10 @@
 # zabbix-tree-cli
 
+[![Go Package](https://pkg.go.dev/badge/github.com/Spartan0nix/zabbix-tree-cli?status.svg)](https://pkg.go.dev/github.com/Spartan0nix/zabbix-tree-cli)
+[![Go report](https://goreportcard.com/badge/github.com/Spartan0nix/zabbix-tree-cli)](https://goreportcard.com/report/github.com/Spartan0nix/zabbix-tree-cli)
+![Test workflow](https://github.com/Spartan0nix/zabbix-tree-cli/actions/workflows/test.yml/badge.svg)
+![Build workflow](https://github.com/Spartan0nix/zabbix-tree-cli/actions/workflows/build.yml/badge.svg)
+
 ## Table of contents
 
 - [Description](#Description)
