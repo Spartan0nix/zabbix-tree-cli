@@ -8,6 +8,7 @@ import (
 )
 
 var File string
+var Color bool
 
 var rootCmd = &cobra.Command{
 	Use:           "zabbix-tree-cli",
@@ -19,6 +20,8 @@ var rootCmd = &cobra.Command{
 }
 
 func init() {
+	hostGroupCmd.Flags().StringVarP(&File, "file", "f", "", "output to a file")
+	hostGroupCmd.Flags().BoolVar(&Color, "color", false, "enable colors in graph output")
 	rootCmd.AddCommand(hostGroupCmd)
 }
 

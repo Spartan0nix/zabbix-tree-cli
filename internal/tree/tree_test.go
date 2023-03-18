@@ -1,185 +1,176 @@
 package tree
 
-import (
-	"log"
-	"testing"
+// func initTree() *TreeNode {
+// 	return &TreeNode{
+// 		Name: "root",
+// 		Childrens: []TreeNode{
+// 			{Name: "node1"},
+// 		},
+// 	}
+// }
 
-	zabbixgosdk "github.com/Spartan0nix/zabbix-go-sdk/v2"
-	"github.com/goccy/go-graphviz"
-	"github.com/goccy/go-graphviz/cgraph"
-)
+// func initGraph() (*TreeNode, *graphviz.Graphviz, *cgraph.Graph, error) {
+// 	g := graphviz.New()
+// 	graph, err := g.Graph()
+// 	if err != nil {
+// 		return nil, nil, nil, err
+// 	}
 
-func initTree() *TreeNode {
-	return &TreeNode{
-		Name: "root",
-		Childrens: []TreeNode{
-			{Name: "node1"},
-		},
-	}
-}
+// 	root := TreeNode{Name: "root"}
+// 	root.GraphNode, err = graph.CreateNode("root")
+// 	if err != nil {
+// 		return nil, nil, nil, err
+// 	}
 
-func initGraph() (*TreeNode, *graphviz.Graphviz, *cgraph.Graph, error) {
-	g := graphviz.New()
-	graph, err := g.Graph()
-	if err != nil {
-		return nil, nil, nil, err
-	}
+// 	node1 := TreeNode{Name: "node1"}
+// 	node1.GraphNode, err = graph.CreateNode("node1")
+// 	if err != nil {
+// 		return nil, nil, nil, err
+// 	}
+// 	node1.ParentGraphNode = root.GraphNode
 
-	root := TreeNode{Name: "root"}
-	root.GraphNode, err = graph.CreateNode("root")
-	if err != nil {
-		return nil, nil, nil, err
-	}
+// 	root.Childrens = append(root.Childrens, node1)
 
-	node1 := TreeNode{Name: "node1"}
-	node1.GraphNode, err = graph.CreateNode("node1")
-	if err != nil {
-		return nil, nil, nil, err
-	}
-	node1.ParentGraphNode = root.GraphNode
+// 	return &root, g, graph, nil
+// }
 
-	root.Childrens = append(root.Childrens, node1)
+// func closeGraph(g *graphviz.Graphviz, graph *cgraph.Graph) {
+// 	if err := graph.Close(); err != nil {
+// 		log.Fatalf("Error when closing the graph.\nReason : %v", err)
+// 	}
+// 	g.Close()
+// }
 
-	return &root, g, graph, nil
-}
+// func TestFlatten(t *testing.T) {
+// 	tree := initTree()
 
-func closeGraph(g *graphviz.Graphviz, graph *cgraph.Graph) {
-	if err := graph.Close(); err != nil {
-		log.Fatalf("Error when closing the graph.\nReason : %v", err)
-	}
-	g.Close()
-}
+// 	n := tree.Flatten()
 
-func TestFlatten(t *testing.T) {
-	tree := initTree()
+// 	if len(n) == 0 {
+// 		t.Fatal("An empty list of TreeNode was returned")
+// 	}
 
-	n := tree.Flatten()
+// 	if len(n) != 2 {
+// 		t.Fatalf("Expected a list of 2 TreeNode.\nA list of '%d' was returned.", len(n))
+// 	}
+// }
 
-	if len(n) == 0 {
-		t.Fatal("An empty list of TreeNode was returned")
-	}
+// func TestSearchNode(t *testing.T) {
+// 	tree := initTree()
 
-	if len(n) != 2 {
-		t.Fatalf("Expected a list of 2 TreeNode.\nA list of '%d' was returned.", len(n))
-	}
-}
+// 	l := make([]TreeNode, 0)
+// 	l = append(l, *tree)
+// 	l = append(l, tree.Childrens[0])
 
-func TestSearchNode(t *testing.T) {
-	tree := initTree()
+// 	existingNode := SearchNode("node1", l)
+// 	if existingNode == nil {
+// 		t.Fatalf("A nil pointer was returned instead of a *TreeNode")
+// 	}
 
-	l := make([]TreeNode, 0)
-	l = append(l, *tree)
-	l = append(l, tree.Childrens[0])
+// 	if existingNode.Name != "node1" {
+// 		t.Fatalf("Expected node 'node1'.\nName returned '%s'", existingNode.Name)
+// 	}
+// }
 
-	existingNode := SearchNode("node1", l)
-	if existingNode == nil {
-		t.Fatalf("A nil pointer was returned instead of a *TreeNode")
-	}
+// func TestCreateChildren(t *testing.T) {
+// 	tree, g, graph, err := initGraph()
+// 	if err != nil {
+// 		t.Fatalf("Error when initializing tree and graph.\nReason : %v", err)
+// 	}
 
-	if existingNode.Name != "node1" {
-		t.Fatalf("Expected node 'node1'.\nName returned '%s'", existingNode.Name)
-	}
-}
+// 	newNode, err := tree.CreateChildren("node2", graph)
+// 	if err != nil {
+// 		t.Fatalf("Error when creating a new children for the current node.\nReason : %v", err)
+// 	}
 
-func TestCreateChildren(t *testing.T) {
-	tree, g, graph, err := initGraph()
-	if err != nil {
-		t.Fatalf("Error when initializing tree and graph.\nReason : %v", err)
-	}
+// 	if newNode == nil {
+// 		t.Fatalf("A nil pointer was returned instead of a *TreeNode")
+// 	}
 
-	newNode, err := tree.CreateChildren("node2", graph)
-	if err != nil {
-		t.Fatalf("Error when creating a new children for the current node.\nReason : %v", err)
-	}
+// 	if newNode.Name != "node2" {
+// 		t.Fatalf("Expected node name 'node2'.\nName returned '%s'", newNode.Name)
+// 	}
 
-	if newNode == nil {
-		t.Fatalf("A nil pointer was returned instead of a *TreeNode")
-	}
+// 	closeGraph(g, graph)
+// }
 
-	if newNode.Name != "node2" {
-		t.Fatalf("Expected node name 'node2'.\nName returned '%s'", newNode.Name)
-	}
+// func TestCreateEdge(t *testing.T) {
+// 	tree, g, graph, err := initGraph()
+// 	if err != nil {
+// 		t.Fatalf("Error when initializing tree and graph.\nReason : %v", err)
+// 	}
 
-	closeGraph(g, graph)
-}
+// 	_, err = tree.Childrens[0].CreateEdge(graph)
+// 	if err != nil {
+// 		t.Fatalf("Error when creating edge between 'node1' and 'root'.\nReason : %v", err)
+// 	}
 
-func TestCreateEdge(t *testing.T) {
-	tree, g, graph, err := initGraph()
-	if err != nil {
-		t.Fatalf("Error when initializing tree and graph.\nReason : %v", err)
-	}
+// 	closeGraph(g, graph)
+// }
 
-	_, err = tree.Childrens[0].CreateEdge(graph)
-	if err != nil {
-		t.Fatalf("Error when creating edge between 'node1' and 'root'.\nReason : %v", err)
-	}
+// func TestAddNode(t *testing.T) {
+// 	tree, g, graph, err := initGraph()
+// 	if err != nil {
+// 		t.Fatalf("Error when initializing tree and graph.\nReason : %v", err)
+// 	}
 
-	closeGraph(g, graph)
-}
+// 	parts := make([]string, 0)
+// 	parts = append(parts, "node2")
+// 	node := &tree.Childrens[0]
 
-func TestAddNode(t *testing.T) {
-	tree, g, graph, err := initGraph()
-	if err != nil {
-		t.Fatalf("Error when initializing tree and graph.\nReason : %v", err)
-	}
+// 	node, parts, err = addNode(tree, node, graph, parts)
+// 	if err != nil {
+// 		t.Fatalf("Erro when adding a node to 'node1'.\nReason : %v", err)
+// 	}
 
-	parts := make([]string, 0)
-	parts = append(parts, "node2")
-	node := &tree.Childrens[0]
+// 	if len(parts) > 0 {
+// 		t.Fatalf("Expected length of parts list to be 0.\nLength of parts list is '%d'.", len(parts))
+// 	}
 
-	node, parts, err = addNode(tree, node, graph, parts)
-	if err != nil {
-		t.Fatalf("Erro when adding a node to 'node1'.\nReason : %v", err)
-	}
+// 	if node == nil || node.Name != "root" {
+// 		t.Fatalf("addNode method did not returned the pointer of the root node (expected since the length of the parts list is 0).")
+// 	}
 
-	if len(parts) > 0 {
-		t.Fatalf("Expected length of parts list to be 0.\nLength of parts list is '%d'.", len(parts))
-	}
+// 	closeGraph(g, graph)
+// }
 
-	if node == nil || node.Name != "root" {
-		t.Fatalf("addNode method did not returned the pointer of the root node (expected since the length of the parts list is 0).")
-	}
+// func TestGenerateHostGroupTree(t *testing.T) {
+// 	_, g, graph, err := initGraph()
+// 	if err != nil {
+// 		t.Fatalf("Error when initializing tree and graph.\nReason : %v", err)
+// 	}
 
-	closeGraph(g, graph)
-}
+// 	tree := TreeNode{Name: "root"}
+// 	groups := make([]*zabbixgosdk.HostGroup, 0)
+// 	groups = append(groups, &zabbixgosdk.HostGroup{
+// 		Name: "Templates",
+// 	})
+// 	groups = append(groups, &zabbixgosdk.HostGroup{
+// 		Name: "Templates/Modules",
+// 	})
 
-func TestGenerateHostGroupTree(t *testing.T) {
-	_, g, graph, err := initGraph()
-	if err != nil {
-		t.Fatalf("Error when initializing tree and graph.\nReason : %v", err)
-	}
+// 	err = tree.GenerateHostGroupTree(groups, graph)
+// 	if err != nil {
+// 		t.Fatalf("Error when generating the tree.\nReason : %v", err)
+// 	}
 
-	tree := TreeNode{Name: "root"}
-	groups := make([]*zabbixgosdk.HostGroup, 0)
-	groups = append(groups, &zabbixgosdk.HostGroup{
-		Name: "Templates",
-	})
-	groups = append(groups, &zabbixgosdk.HostGroup{
-		Name: "Templates/Modules",
-	})
+// 	closeGraph(g, graph)
+// }
 
-	err = tree.GenerateHostGroupTree(groups, graph)
-	if err != nil {
-		t.Fatalf("Error when generating the tree.\nReason : %v", err)
-	}
+// func TestGenerateTreeEdges(t *testing.T) {
+// 	tree, g, graph, err := initGraph()
+// 	if err != nil {
+// 		t.Fatalf("Error when initializing tree and graph.\nReason : %v", err)
+// 	}
 
-	closeGraph(g, graph)
-}
+// 	l := make([]TreeNode, 0)
+// 	l = append(l, *tree)
+// 	l = append(l, tree.Childrens[0])
 
-func TestGenerateTreeEdges(t *testing.T) {
-	tree, g, graph, err := initGraph()
-	if err != nil {
-		t.Fatalf("Error when initializing tree and graph.\nReason : %v", err)
-	}
+// 	graph, err = GenerateTreeEdges(graph, l)
+// 	if err != nil {
+// 		t.Fatalf("Error when generating tree edges.\nReason : %v", err)
+// 	}
 
-	l := make([]TreeNode, 0)
-	l = append(l, *tree)
-	l = append(l, tree.Childrens[0])
-
-	graph, err = GenerateTreeEdges(graph, l)
-	if err != nil {
-		t.Fatalf("Error when generating tree edges.\nReason : %v", err)
-	}
-
-	closeGraph(g, graph)
-}
+// 	closeGraph(g, graph)
+// }

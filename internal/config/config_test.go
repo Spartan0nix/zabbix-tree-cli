@@ -11,27 +11,6 @@ const (
 	PWD  = "zabbix"
 )
 
-func TestCheckFileFlag(t *testing.T) {
-	err := CheckFileFlag("json", "./local_file")
-	if err != nil {
-		t.Fatalf("Error when executing CheckFileFlag function.\nReason : %v", err)
-	}
-}
-
-func TestCheckFileFlagUnsupportedFormat(t *testing.T) {
-	err := CheckFileFlag("unsupported_format", "./local_file")
-	if err == nil {
-		t.Fatalf("CheckFileFlag should return an error when an unsupported format is used.")
-	}
-}
-
-func TestCheckFileFlagMissingFile(t *testing.T) {
-	err := CheckFileFlag("json", "")
-	if err == nil {
-		t.Fatalf("CheckFileFlag should return an error when the file value is empty for certain formats.")
-	}
-}
-
 func TestGetEnvironmentVariables(t *testing.T) {
 	if err := os.Setenv("ZABBIX_URL", URL); err != nil {
 		t.Fatalf("Error when setting ZABBIX_URL environment variable.\nReason : %v", err)

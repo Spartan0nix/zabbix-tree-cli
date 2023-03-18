@@ -10,7 +10,7 @@ import (
 func TestOutputInShell(t *testing.T) {
 	root := &tree.TreeNode{
 		Name: "root",
-		Childrens: []tree.TreeNode{
+		Childrens: []*tree.TreeNode{
 			{Name: "node1"},
 		},
 	}

@@ -1,29 +1,57 @@
 SHELL = /bin/bash
 
+# ------------------------------------------------
+# Docker compose
+# ------------------------------------------------
 up:
 	docker compose -f ./docker-compose.yml up
 	
 down:
 	docker compose -f ./docker-compose.yml down
 
-json:
-	go run main.go host-group --format json --file build/render.json
+# ------------------------------------------------
+# CLI commands
+# ------------------------------------------------
+# - DOT
+dot:
+	go run main.go host-group dot
 
-jpg:
-	go run main.go host-group --format jpg --file build/render.jpg
+dot-file:
+	go run main.go host-group dot --file build/render.dot.txt
 
-png:
-	go run main.go host-group --format png --file build/render.png
+dot-color:
+	go run main.go host-group dot --color
+
+dot-file-color:
+	go run main.go host-group dot --file build/render.dot.txt --color
 
 svg:
-	go run main.go host-group --format svg --file build/render.svg
+	go run main.go host-group dot | dot -Tsvg > build/output.svg
 
+svg-color:
+	go run main.go host-group dot --color | dot -Tsvg > build/output.svg
+
+# - JSON
+json:
+	go run main.go host-group json
+
+json-file:
+	go run main.go host-group json --file build/render.json
+
+# - SHELL
 shell:
-	go run main.go host-group --format shell
+	go run main.go host-group shell
 
+shell-file:
+	go run main.go host-group shell --file build/render.shell.txt
+
+# - HELPER
 help:
 	go run main.go --help
 
+# ------------------------------------------------
+# Tests
+# ------------------------------------------------
 test:
 	@echo "Running container stack..."
 	docker compose -f ./docker-compose.test.yml up -d
@@ -70,5 +98,8 @@ rm-test-files:
 	rm internal/render/test_render.*
 	rm internal/app/test_render.*
 
+# ------------------------------------------------
+# Build
+# ------------------------------------------------
 build-linux:
 	GOOS=linux GOARCH=amd64 go build -o build/zabbix-tree-cli_linux_amd64 --ldflags '-extldflags "-static"'
