@@ -1,7 +1,6 @@
 package render
 
 import (
-	"os"
 	"testing"
 
 	"github.com/Spartan0nix/zabbix-tree-cli/internal/tree"
@@ -9,15 +8,18 @@ import (
 
 func TestOutputInShell(t *testing.T) {
 	root := &tree.TreeNode{
-		Name: "root",
+		Name: "test-root",
+		Id:   "123456789",
 		Childrens: []*tree.TreeNode{
-			{Name: "node1"},
+			{
+				Name: "test-root-children",
+				Id:   "987654321",
+			},
 		},
 	}
 
-	// Prevent shell output
-	// We only when error to be returned
-	os.Stdout = nil
-
-	OutputInShell(root)
+	b := OutputInShell(root)
+	if len(b) == 0 {
+		t.Fatalf("An empty slice of byte was returned")
+	}
 }
