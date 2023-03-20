@@ -7,7 +7,7 @@ import (
 )
 
 // OutputAsJson is used to render a TreeNode to a file in json
-func OutputAsJson(path string, tree *tree.TreeNode) ([]byte, error) {
+func OutputAsJson(tree *tree.TreeNode) ([]byte, error) {
 	b, err := json.Marshal(tree)
 	if err != nil {
 		return nil, err

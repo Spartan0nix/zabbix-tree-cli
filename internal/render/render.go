@@ -46,7 +46,7 @@ func RenderTree(file string, format string, t tree.TreeNode, color bool) error {
 		b = OutputInShell(&t)
 
 	case "json":
-		b, err = OutputAsJson(file, &t)
+		b, err = OutputAsJson(&t)
 		if err != nil {
 			return err
 		}
