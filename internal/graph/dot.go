@@ -153,6 +153,9 @@ func RenderDotGraph(t tree.TreeNode, color bool) (*bytes.Buffer, error) {
 		return nil, err
 	}
 
+	// We are now leaving the digraph block body
+	indentation--
+
 	// Close the graph
 	err = writeString(&indentation, &buffer, "}")
 	if err != nil {
