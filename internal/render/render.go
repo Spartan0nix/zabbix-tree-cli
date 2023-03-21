@@ -8,6 +8,7 @@ import (
 	"github.com/Spartan0nix/zabbix-tree-cli/internal/tree"
 )
 
+// WriteToFile is used to write the given slice of byte to a file.
 func WriteToFile(file string, b []byte) error {
 	err := os.WriteFile(file, b, 0644)
 	if err != nil {
@@ -17,6 +18,8 @@ func WriteToFile(file string, b []byte) error {
 	return nil
 }
 
+// OutputTree is used to write the given slice of byte to the appropriate format.
+// If the file argument is empty, print the output to the shell, otherwise write to the given file.
 func OutputTree(file string, b []byte) error {
 	var err error
 

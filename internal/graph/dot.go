@@ -9,7 +9,7 @@ import (
 	"github.com/lucasb-eyer/go-colorful"
 )
 
-// writeDotNode is used to write the representation of a node
+// writeDotNode is used to write the representation of a node.
 func writeDotNode(indentation *int, b *bytes.Buffer, t *tree.TreeNode) error {
 	// Build the default node config
 	nodeConfig := fmt.Sprintf("\"%s\" [label=\"%s\",shape=box];", t.Id, t.Name)
@@ -22,7 +22,7 @@ func writeDotNode(indentation *int, b *bytes.Buffer, t *tree.TreeNode) error {
 	return nil
 }
 
-// writeConnections is used to write connections between the given node and it's children
+// writeConnections is used to write connections between the given node and it's children.
 func writeDotConnections(indentation *int, b *bytes.Buffer, t *tree.TreeNode) error {
 	nodes := t.Childrens
 
@@ -38,8 +38,8 @@ func writeDotConnections(indentation *int, b *bytes.Buffer, t *tree.TreeNode) er
 	return nil
 }
 
-// writeSubGraph is used to write a subgraph in the buffer representing the given TreeNode
-// If the TreeNode has child nodes, the function will be executed on them
+// writeSubGraph is used to write a subgraph in the buffer representing the given TreeNode.
+// If the TreeNode has child nodes, the function will be executed on them.
 func writeDotSubGraph(indentation *int, b *bytes.Buffer, t *tree.TreeNode, color bool) error {
 
 	// If the node as no child, don't add a subgraph, simply a node representation
@@ -103,7 +103,7 @@ func writeDotSubGraph(indentation *int, b *bytes.Buffer, t *tree.TreeNode, color
 	return nil
 }
 
-// writeGraphConfiguration is used to write the given config to a graph block
+// writeGraphConfiguration is used to write the given config to a graph block.
 func writeDotGraphConfiguration(indentation *int, b *bytes.Buffer, configs []string) error {
 	for _, c := range configs {
 		err := writeString(indentation, b, c)
@@ -115,7 +115,7 @@ func writeDotGraphConfiguration(indentation *int, b *bytes.Buffer, configs []str
 	return nil
 }
 
-// RenderDotGraph is used to render the given Tree to a dot representation
+// RenderDotGraph is used to render the given Tree to a dot representation.
 func RenderDotGraph(t tree.TreeNode, color bool) (*bytes.Buffer, error) {
 	var buffer bytes.Buffer
 	indentation := 0

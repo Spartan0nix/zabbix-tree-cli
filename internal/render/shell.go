@@ -6,7 +6,7 @@ import (
 	"github.com/Spartan0nix/zabbix-tree-cli/internal/tree"
 )
 
-// OutputInShell is used to print the content of a treeNode in the shell
+// OutputInShell is used to print the content of a treeNode in the shell.
 func OutputInShell(t *tree.TreeNode) []byte {
 	b := make([]byte, 0)
 	out := t.Flatten()

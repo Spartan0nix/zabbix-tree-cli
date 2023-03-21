@@ -7,6 +7,8 @@ import (
 	zabbixgosdk "github.com/Spartan0nix/zabbix-go-sdk/v2"
 )
 
+// GenerateHostGroupTree is used to generate a full tree of nodes for the given HostGroups.
+// The current node will be used as the root node (or TLD node).
 func (t *TreeNode) GenerateHostGroupTree(groups []*zabbixgosdk.HostGroup, debug bool) error {
 	var err error
 	if debug {

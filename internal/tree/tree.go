@@ -5,7 +5,7 @@ import (
 	"encoding/hex"
 )
 
-// TreeNode defined the structure of each node used to construct a tree
+// TreeNode defined the structure of each node used to construct a tree.
 type TreeNode struct {
 	Name      string      `json:"name"`
 	Id        string      `json:"id,omitempty"`
@@ -13,6 +13,7 @@ type TreeNode struct {
 	Childrens []*TreeNode `json:"childrens,omitempty"`
 }
 
+// GenerateNewHash is used to generate a random hash with the given length.
 func GenerateNewHash(length int8) (string, error) {
 	b := make([]byte, length)
 	if _, err := rand.Read(b); err != nil {
@@ -22,6 +23,7 @@ func GenerateNewHash(length int8) (string, error) {
 	return hex.EncodeToString(b), nil
 }
 
+// Flatten is used to convert a TreeNode to a flat representation (list of TreeNode).
 func (t *TreeNode) Flatten() []TreeNode {
 	out := make([]TreeNode, 0)
 
@@ -39,6 +41,7 @@ func (t *TreeNode) Flatten() []TreeNode {
 	return out
 }
 
+// searchNode is used to search for a node with the given name in a list of TreeNode.
 func searchNode(name string, nodes []*TreeNode) *TreeNode {
 	for len(nodes) > 0 {
 		if nodes[0].Name == name {
@@ -51,6 +54,8 @@ func searchNode(name string, nodes []*TreeNode) *TreeNode {
 	return nil
 }
 
+// createChildren is used to add a new child node for the current TreeNode.
+// The TreeNode ptr returned if the one from the newly created node.
 func (t *TreeNode) createChildren(name string) (*TreeNode, error) {
 	hash, err := GenerateNewHash(20)
 	if err != nil {
