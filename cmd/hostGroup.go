@@ -7,6 +7,7 @@ import (
 
 	"github.com/Spartan0nix/zabbix-tree-cli/internal/app"
 	"github.com/Spartan0nix/zabbix-tree-cli/internal/config"
+	"github.com/Spartan0nix/zabbix-tree-cli/internal/logging"
 	"github.com/Spartan0nix/zabbix-tree-cli/internal/render"
 	"github.com/Spartan0nix/zabbix-tree-cli/internal/tree"
 	"github.com/spf13/cobra"
@@ -19,9 +20,13 @@ var hostGroupCmd = &cobra.Command{
 	ValidArgs: []string{"dot", "json", "shell"},
 	Args:      cobra.MatchAll(cobra.ExactArgs(1), cobra.OnlyValidArgs),
 	Run: func(cmd *cobra.Command, args []string) {
+		if Debug {
+			GlobalLogger.Level = logging.Debug
+		}
+
 		env, err := config.GetEnvironmentVariables()
 		if err != nil {
-			fmt.Println(err)
+			GlobalLogger.Error("error when reading the required environment variables", fmt.Sprintf("reason : %s", err))
 			os.Exit(1)
 		}
 
@@ -39,16 +44,20 @@ func runHostGroup(env *config.Env, format string, file string, color bool) {
 	client, err := app.InitApi(env.ZabbixUrl, env.ZabbixUser, env.ZabbixPwd)
 	if err != nil {
 		log.Fatalf("Error when initializing zabbix client.\nReason : %v", err)
+		GlobalLogger.Error("error when initializing zabbix client", fmt.Sprintf("reason : %v", err))
+		os.Exit(1)
 	}
 
 	groups, err := client.HostGroup.List()
 	if err != nil {
-		log.Fatalf("Error when retrieving the list of host groups.\nReason : %v", err)
+		GlobalLogger.Error("error when retrieving the list of host groups", fmt.Sprintf("reason : %v", err))
+		os.Exit(1)
 	}
 
 	hash, err := tree.GenerateNewHash(30)
 	if err != nil {
-		log.Fatalf("Error when generating hash for 'root' node.\nReason : %v", err)
+		GlobalLogger.Error("error when generating hash for 'root' node", fmt.Sprintf("reason : %v", err))
+		os.Exit(1)
 	}
 
 	t := tree.TreeNode{
@@ -56,13 +65,15 @@ func runHostGroup(env *config.Env, format string, file string, color bool) {
 		Id:   hash,
 	}
 
-	err = t.GenerateHostGroupTree(groups, false)
+	err = t.GenerateHostGroupTree(groups, GlobalLogger)
 	if err != nil {
-		log.Fatalf("Error when generating the tree.\nReason : %v", err)
+		GlobalLogger.Error("error when generating the tree", fmt.Sprintf("reason : %v", err))
+		os.Exit(1)
 	}
 
 	err = render.RenderTree(file, format, t, color)
 	if err != nil {
-		log.Fatalf("Error when rendering the tree.\nReason : %v", err)
+		GlobalLogger.Error("error when rendering the tree", fmt.Sprintf("reason : %v", err))
+		os.Exit(1)
 	}
 }
