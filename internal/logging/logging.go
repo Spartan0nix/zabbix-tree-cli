@@ -59,7 +59,7 @@ func (l *Logger) setFlags(level LogLevel) {
 }
 
 // log is used as a wrapper function to log the given data while handling logger flags, prefix and content assignments.
-func (l *Logger) log(level LogLevel, v ...any) {
+func (l *Logger) writeLog(level LogLevel, v ...any) {
 	// Do not write log if the level is not configured
 	if level <= l.Level {
 		// Set the logger flags
@@ -98,25 +98,25 @@ func (l *Logger) log(level LogLevel, v ...any) {
 
 // Critical is used to log data to the shell with the level logging.Critical.
 func (l *Logger) Critical(v ...any) {
-	l.log(Critical, v...)
+	l.writeLog(Critical, v...)
 }
 
 // Error is used to log data to the shell with the level logging.Error.
 func (l *Logger) Error(v ...any) {
-	l.log(Error, v...)
+	l.writeLog(Error, v...)
 }
 
 // Warning is used to log data to the shell with the level logging.Warning.
 func (l *Logger) Warning(v ...any) {
-	l.log(Warning, v...)
+	l.writeLog(Warning, v...)
 }
 
 // Info is used to log data to the shell with the level logging.Info.
 func (l *Logger) Info(v ...any) {
-	l.log(Info, v...)
+	l.writeLog(Info, v...)
 }
 
 // Debug is used to log data to the shell with the level logging.Debug.
 func (l *Logger) Debug(v ...any) {
-	l.log(Debug, v...)
+	l.writeLog(Debug, v...)
 }
