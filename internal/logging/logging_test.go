@@ -70,7 +70,6 @@ func TestSetFlags(t *testing.T) {
 
 func TestWriteLog(t *testing.T) {
 	var buf bytes.Buffer
-	buf.Reset()
 	expectedOutput := "[INFO] test-value\n"
 
 	// Set the logger output to a buffer instead of os.Stderr file
@@ -81,6 +80,26 @@ func TestWriteLog(t *testing.T) {
 	bufOut := buf.String()
 	if bufOut != expectedOutput {
 		t.Fatalf("Wrong log format returned\nExpected : %s\nReturned : %s", expectedOutput, bufOut)
+	}
+}
+
+func TestWriteLogPanic(t *testing.T) {
+	defer func() {
+		if err := recover(); err == nil {
+			t.Fatal("panic function was not trigger")
+		}
+	}()
+
+	var buf bytes.Buffer
+	expectedOutput := "[CRITICAL] test-value\n"
+
+	// Set the logger output to a buffer instead of os.Stderr file
+	testLogger.logger.SetOutput(&buf)
+
+	testLogger.writeLog(Critical, "test-value")
+
+	if !strings.Contains(buf.String(), expectedOutput) {
+		t.Fatalf("Wrong log format returned\nExpected '%s' to be present in the output string\nReturned : %s", expectedOutput, buf.String())
 	}
 }
 
