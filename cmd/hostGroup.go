@@ -2,7 +2,6 @@ package cmd
 
 import (
 	"fmt"
-	"log"
 	"os"
 
 	"github.com/Spartan0nix/zabbix-tree-cli/internal/app"
@@ -43,7 +42,6 @@ var hostGroupCmd = &cobra.Command{
 func runHostGroup(env *config.Env, format string, file string, color bool) {
 	client, err := app.InitApi(env.ZabbixUrl, env.ZabbixUser, env.ZabbixPwd)
 	if err != nil {
-		log.Fatalf("Error when initializing zabbix client.\nReason : %v", err)
 		GlobalLogger.Error("error when initializing zabbix client", fmt.Sprintf("reason : %v", err))
 		os.Exit(1)
 	}
