@@ -2,23 +2,21 @@
 
 set -e
 
-INSTALL_DIR="/usr/local/zabbix-tree-cli"
+INSTALL_DIR="/usr/local/bin/zabbix-tree-cli"
 
-if [[ -d $INSTALL_DIR ]]
+if [[ -f $INSTALL_DIR ]]
 then
-    echo "Removing directory '$INSTALL_DIR'"
-    sudo rm -r $INSTALL_DIR
-else
-    echo "No '$INSTALL_DIR' directory found"
-fi
+    echo "[INFO] Removing '$INSTALL_DIR'"
+    sudo rm $INSTALL_DIR
 
-echo ""
-echo "--------------------------------------------------------------------------------------------------"
-echo "'zabbix-tree-cli' was succesfuly uninstalled."
-echo ""
-echo "Don't forget to remove '$INSTALL_DIR' from your path if you added configuration in your ~/.bashrc or ~/.zshrc."
-echo ""
-echo "Thanks you for using this cli and don't forget to check out the documentation at 'https://github.com/Spartan0nix/zabbix-tree-cli#zabbix-tree-cli'"
-echo "--------------------------------------------------------------------------------------------------"
+    echo ""
+    echo "--------------------------------------------------------------------------------------------------"
+    echo "'zabbix-tree-cli' was succesfuly uninstalled."
+    echo "Thanks you for using this cli and don't forget to check out the documentation at 'https://github.com/Spartan0nix/zabbix-tree-cli#zabbix-tree-cli'"
+    echo "--------------------------------------------------------------------------------------------------"
+else
+    echo "[WARNING] No previous install detected"
+    echo "[INFO] - '$INSTALL_DIR' -> Missing"
+fi
 
 exit 0

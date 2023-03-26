@@ -2,74 +2,107 @@
 
 set -e
 
-TMP_INSTALL_DIR="/tmp"
-TMP_INSTALL_ARCHIVE_PATH="$TMP_INSTALL_DIR/zabbix-tree-cli.tar.gz"
-INSTALL_DIR="/usr/local/zabbix-tree-cli"
+TMP_INSTALL_DIR="/tmp/zabbix-cli"
+TMP_INSTALL_ARCHIVE_PATH="$TMP_INSTALL_DIR/zabbix-cli.tar.gz"
+INSTALL_DIR="/usr/local/bin"
+
+if [[ -f "$INSTALL_DIR/zabbix-tree-cli" ]]
+then
+    echo "[WARNING] Previous install detected at '$INSTALL_DIR/zabbix-tree-cli'"
+    echo "Exiting..."
+    exit 1
+fi
+
 
 # Retrieve the list of release objects from github API
-payload=$(curl --silent https://api.github.com/repos/Spartan0nix/zabbix-tree-cli/releases)
+releases=$(curl --silent https://api.github.com/repos/Spartan0nix/zabbix-tree-cli/releases)
 
-echo "Listing available version"
+# ----------------------------------------------------
+# TAG
+# ----------------------------------------------------
+echo "[INFO] Listing available version"
 # Retrieve all tag_name from the available releases
-releases=$(echo $payload | jq -r '.[].tag_name')
+tags=$(echo $releases | jq -r '.[].tag_name')
 # Replace space by newline to render a better ouput in the shell
-echo $releases | tr '[[:space:]]' '\n'
+echo $tags | tr '[[:space:]]' '\n'
 
-release_tag=""
-re=v[0-9]\.[0-9]\.[0-9]
+selectedTag=""
+re=[0-9]\.[0-9]\.[0-9]
 # Loop while user as not provided a proper release format (vX.Y.Z)
-while [[ ! "$release_tag" =~ $re ]]
+while [[ ! "$selectedTag" =~ $re ]]
 do
     echo "Select one version for the list above :"
-    read release_tag
+    read selectedTag
 done
 
+# ----------------------------------------------------
+# RELEASE
+# ----------------------------------------------------
 # Extract the selected release
-selected_release=$(echo $payload | jq --arg v $release_tag '.[] | select(.tag_name == $v)')
-if [[ $selected_release == "" ]]
+selectedRelease=$(echo $releases | jq --arg v $selectedTag '.[] | select(.tag_name == $v)')
+if [[ $selectedRelease == "" ]]
 then
-    echo "No release '$release_tag' found"
+    echo "[ERROR] No release '$selectedTag' found"
     exit 1
 fi
 
+# ----------------------------------------------------
+# ASSET
+# ----------------------------------------------------
+assets=$(echo $selectedRelease | jq -r '.assets[].name')
+
+echo ""
+echo "[INFO] Listing available assets for the selected release"
+echo $assets | tr '[[:space:]]' '\n'
+
+selectedAsset=""
+re=^.+tar\.gz$
+
+while [[ ! "$selectedAsset" =~ $re ]]
+do
+    echo "Select one asset for the list above :"
+    read selectedAsset
+done
+
+# ----------------------------------------------------
+# ASSET URL
+# ----------------------------------------------------
 # Retrive the asset URL
-asset_url=$(echo $selected_release | jq -r '.assets[] | select(.name | test("tar.gz")) | .browser_download_url')
-if [[ $asset_url == "" ]]
+assetUrl=$(echo $selectedRelease | jq -r --arg v $selectedAsset '.assets[] | select(.name == $v) | .browser_download_url')
+if [[ $assetUrl == "" ]]
 then
-    echo "No assets found for release '$release_tag'"
+    echo "[ERROR] No assets '$selectedAsset' found for release"
     exit 1
 fi
 
-# Check for required directory
+# ----------------------------------------------------
+# INSTALL
+# ----------------------------------------------------
 echo ""
-echo "Checking if '$INSTALL_DIR' exist"
-if [[ ! -d $INSTALL_DIR ]]
+echo "[INFO] Creating '$TMP_INSTALL_DIR'"
+if [[ ! -d $TMP_INSTALL_DIR ]]
 then
-    echo "Creating directory now"
-    sudo mkdir $INSTALL_DIR
-else
-    echo "Directory already exist"
+    mkdir $TMP_INSTALL_DIR
 fi
 
-echo ""
-echo "Downloading asset to '$TMP_INSTALL_ARCHIVE_PATH'"
-wget $asset_url -O $TMP_INSTALL_ARCHIVE_PATH -q --show-progress
+echo "[INFO] Downloading asset to '$TMP_INSTALL_ARCHIVE_PATH'"
+wget $assetUrl -O $TMP_INSTALL_ARCHIVE_PATH -q --show-progress
 
-echo ""
-echo "Extracting archive in '$INSTALL_DIR'"
-sudo tar -C $INSTALL_DIR -xzf $TMP_INSTALL_ARCHIVE_PATH
+echo "[INFO] Extracting archive"
+tar -C $TMP_INSTALL_DIR -xzf $TMP_INSTALL_ARCHIVE_PATH
 
-echo ""
-echo "Removing archive '$TMP_INSTALL_ARCHIVE_PATH'"
-rm $TMP_INSTALL_ARCHIVE_PATH
+echo "[INFO] Moving binary to '$INSTALL_DIR'"
+sudo mv "$TMP_INSTALL_DIR/zabbix-tree-cli" /usr/local/bin
+
+echo "[INFO] Updating permissions"
+sudo chown $(id -un):$(id -gn) /usr/local/bin/zabbix-tree-cli
+
+echo "[INFO] Removing '$TMP_INSTALL_DIR'"
+rm -r $TMP_INSTALL_DIR
 
 echo ""
 echo "--------------------------------------------------------------------------------------------------"
-echo "Release '$release_tag' of the 'zabbix-tree-cli' was succesfuly installed to '$INSTALL_DIR'."
-echo ""
-echo "Don't forget to add '$INSTALL_DIR' to your path :"
-echo "$ export PATH=\$PATH:$INSTALL_DIR"
-echo ""
+echo "Release '$selectedTag' of the 'zabbix-tree-cli' was succesfuly installed to '$INSTALL_DIR'."
 echo "Thanks you for using this cli and don't forget to check out the documentation at 'https://github.com/Spartan0nix/zabbix-tree-cli#zabbix-tree-cli'"
 echo "--------------------------------------------------------------------------------------------------"
 
