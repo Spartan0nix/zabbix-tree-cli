@@ -48,21 +48,25 @@ To use this tool, you will need to set up the following variables :
 - ZABBIX_PWD
 
 You can simply export the variable in your current shell :
+
+<u>Linux :</u>
 ```bash
 export ZABBIX_URL="http://<zabbix-server-IP-or-DNS>:<port>/zabbix/api_jsonrpc.php"
 export ZABBIX_USER="some-zabbix-user"
 export ZABBIX_PWD="some-zabbix-user-password"
 ```
-
 Adding this configuration to your ~/.bashrc or ~/.zshrc will make the configuration persistent between shell.
 
+<u>Windows (example for powershell) :</u>
+```powershell
+$env:ZABBIX_URL="http://<zabbix-server-IP-or-DNS>:<port>/zabbix/api_jsonrpc.php"
+$env:ZABBIX_USER="some-zabbix-user"
+$env:ZABBIX_PWD="some-zabbix-user-password"
+```
 
 ### Install
 
-Each time a new release is created, the cli is compiled and the resultant binaries are pushed as assets.
-Currently, only the linux/amd64 arch is supported (due to the 'go-graphviz' module build restrictions).
-
-1. Script (available in the *scripts* folder):
+1. With a script (available in the *scripts* folder):
 
     ```bash
     bash scripts/install.sh
@@ -70,22 +74,34 @@ Currently, only the linux/amd64 arch is supported (due to the 'go-graphviz' modu
 
 2. Manually :
 
+    Each time a new release is created, the cli is compiled and the resultant binaries are pushed as assets (https://github.com/Spartan0nix/zabbix-tree-cli/releases).
+
     ```bash
-    # Retrieve the archive for release v1.0.0
-    wget https://github.com/Spartan0nix/zabbix-tree-cli/releases/download/v1.0.0/zabbix-tree-cli_1.0.0_linux_amd64.tar.gz
+    # Create a temp installation folder
+    mkdir /tmp/zabbix-cli
+
+    # Retrieve the archive for release $RELEASE
+    wget -O /tmp/zabbix-cli/zabbix-cli.tar.gz https://github.com/Spartan0nix/zabbix-tree-cli/releases/download/$RELEASE/zabbix-tree-cli_$RELEASE_linux_amd64.tar.gz
+
     # Remove previous install
-    sudo rm -r /usr/local/zabbix-tree-cli
-    # Create a folder to store the binary
-    sudo mkdir /usr/local/zabbix-tree-cli
+    sudo rm /usr/local/bin/zabbix-tree-cli
+
     # Extract the archive
-    sudo tar -C /usr/local/zabbix-tree-cli -xzf zabbix-tree-cli_1.0.0_linux_amd64.tar.gz
-    # Update your PATH
-    export PATH=$PATH:/usr/local/zabbix-tree-cli
+    tar -C /tmp/zabbix-cli -xzf /tmp/zabbix-cli/zabbix-cli.tar.gz
+
+    # Move the binairy
+    sudo mv /tmp/zabbix-cli/zabbix-tree-cli /usr/local/bin
+
+    # Update permissions
+    sudo chown $(id -un):$(id -gn) /usr/local/bin/zabbix-tree-cli
+
+    # Remove temp installation folder
+    rm -r /tmp/zabbix-cli
     ```
 
 ### Uninstall
 
-1. Script (available in the *scripts* folder):
+1. With a script (available in the *scripts* folder):
 
     ```bash
     bash scripts/uninstall.sh
@@ -94,7 +110,7 @@ Currently, only the linux/amd64 arch is supported (due to the 'go-graphviz' modu
 2. Manually :
 
     ```bash
-    sudo rm -r /usr/local/zabbix-tree-cli
+    sudo rm /usr/local/bin/zabbix-tree-cli
     ```
 
 ### Run
@@ -152,5 +168,4 @@ Use " [command] --help" for more information about a command.
 
 3. Other completions
 
-    - Completion for fish haven't been tested.
-    - Binaries for windows can't be compiled.
+    - Completion for fish and powershell are available but haven't been tested.
