@@ -46,8 +46,16 @@ func TestAuthenticate(t *testing.T) {
 	}
 }
 
-func TestAuthenticateFailCredentials(t *testing.T) {
+func TestAuthenticateBadCredentials(t *testing.T) {
 	err := Authenticate(c, "random-user", "random-password")
+
+	if err == nil {
+		t.Fatal("A nil error was returned.\nExpected an authentification error.")
+	}
+}
+
+func TestAuthenticateBadPassword(t *testing.T) {
+	err := Authenticate(c, ZABBIX_USER, "random-password")
 
 	if err == nil {
 		t.Fatal("A nil error was returned.\nExpected an authentification error.")

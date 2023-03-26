@@ -4,10 +4,14 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/Spartan0nix/zabbix-tree-cli/internal/logging"
 	"github.com/spf13/cobra"
 )
 
 var File string
+var Color bool
+var Debug bool
+var GlobalLogger *logging.Logger
 
 var rootCmd = &cobra.Command{
 	Use:           "zabbix-tree-cli",
@@ -19,12 +23,18 @@ var rootCmd = &cobra.Command{
 }
 
 func init() {
+	hostGroupCmd.Flags().StringVarP(&File, "file", "f", "", "output to a file")
+	hostGroupCmd.Flags().BoolVar(&Color, "color", false, "enable colors in graph output")
+	hostGroupCmd.Flags().BoolVar(&Debug, "debug", false, "enable debug output during execution")
 	rootCmd.AddCommand(hostGroupCmd)
+	// Init the global logger
+	GlobalLogger = logging.NewLogger(logging.Warning)
 }
 
 func Execute() {
-	if err := rootCmd.Execute(); err != nil {
-		fmt.Println(err)
+	err := rootCmd.Execute()
+	if err != nil {
+		GlobalLogger.Error("error when executing root command", fmt.Sprintf("reason : %v", err))
 		os.Exit(1)
 	}
 }

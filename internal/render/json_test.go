@@ -8,14 +8,22 @@ import (
 
 func TestOutputAsJson(t *testing.T) {
 	root := tree.TreeNode{
-		Name: "root",
-		Childrens: []tree.TreeNode{
-			{Name: "node1"},
+		Name: "test-root",
+		Id:   "123456789",
+		Childrens: []*tree.TreeNode{
+			{
+				Name: "test-root-children",
+				Id:   "987654321",
+			},
 		},
 	}
 
-	err := OutputAsJson("./test_render.json", &root)
+	b, err := OutputAsJson(&root)
 	if err != nil {
-		t.Fatalf("Error when rendering tree node to json.\nReason : %v", err)
+		t.Fatalf("Error when executing OutputAsJson function\nReason : %v", err)
+	}
+
+	if len(b) == 0 {
+		t.Fatalf("An empty slice of byte was returned")
 	}
 }

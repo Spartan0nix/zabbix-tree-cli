@@ -12,18 +12,18 @@ const (
 	PWD  = "zabbix"
 )
 
-func TestRunHostGroupWithGraph(t *testing.T) {
+func TestRunHostGroup(t *testing.T) {
 	runHostGroup(&config.Env{
 		ZabbixUrl:  URL,
 		ZabbixUser: USER,
 		ZabbixPwd:  PWD,
-	}, "png", "test_render.png")
+	}, "dot", "", false)
 }
 
-func TestRunHostGroupWithoutGraph(t *testing.T) {
-	runHostGroup(&config.Env{
-		ZabbixUrl:  URL,
-		ZabbixUser: USER,
-		ZabbixPwd:  PWD,
-	}, "json", "test_render.json")
-}
+// func TestRunHostGroup(t *testing.T) {
+// 	runHostGroup(&config.Env{
+// 		ZabbixUrl:  URL,
+// 		ZabbixUser: USER,
+// 		ZabbixPwd:  PWD,
+// 	}, "dot", "", false)
+// }

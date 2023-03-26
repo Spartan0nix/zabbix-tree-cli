@@ -5,104 +5,225 @@ import (
 	"testing"
 
 	"github.com/Spartan0nix/zabbix-tree-cli/internal/tree"
-	"github.com/goccy/go-graphviz"
-	"github.com/goccy/go-graphviz/cgraph"
 )
 
-func initTree() *tree.TreeNode {
-	return &tree.TreeNode{
-		Name: "root",
-		Childrens: []tree.TreeNode{
-			{Name: "node1"},
-		},
+func TestWriteToFile(t *testing.T) {
+	err := WriteToFile("test.json", []byte{})
+	if err != nil {
+		t.Fatalf("Error when executing WriteToFile function\nReason : %v", err)
+	}
+
+	err = os.Remove("test.json")
+	if err != nil {
+		t.Fatalf("Error when trying to remove the file created during this test ('test.json')")
 	}
 }
 
-func initGraph() (*tree.TreeNode, *graphviz.Graphviz, *cgraph.Graph, error) {
-	g := graphviz.New()
-	graph, err := g.Graph()
-	if err != nil {
-		return nil, nil, nil, err
-	}
-
-	root := tree.TreeNode{Name: "root"}
-	root.GraphNode, err = graph.CreateNode("root")
-	if err != nil {
-		return nil, nil, nil, err
-	}
-
-	node1 := tree.TreeNode{Name: "node1"}
-	node1.GraphNode, err = graph.CreateNode("node1")
-	if err != nil {
-		return nil, nil, nil, err
-	}
-	node1.ParentGraphNode = root.GraphNode
-
-	root.Childrens = append(root.Childrens, node1)
-
-	return &root, g, graph, nil
-}
-
-func TestRenderOutputJPG(t *testing.T) {
-	tree, g, graph, err := initGraph()
-	if err != nil {
-		t.Fatalf("Error when initializing tree and graph.\nReason : %v", err)
-	}
-
-	err = RenderOutput("./test_render.jpg", "jpg", *tree, g, graph)
-	if err != nil {
-		t.Fatalf("Error when rendering tree to jpg.\nReason : %v", err)
-	}
-
-	CloseGraph(g, graph)
-}
-
-func TestRenderOutputPNG(t *testing.T) {
-	tree, g, graph, err := initGraph()
-	if err != nil {
-		t.Fatalf("Error when initializing tree and graph.\nReason : %v", err)
-	}
-
-	err = RenderOutput("./test_render.png", "png", *tree, g, graph)
-	if err != nil {
-		t.Fatalf("Error when rendering tree to png.\nReason : %v", err)
-	}
-
-	CloseGraph(g, graph)
-}
-
-func TestRenderOutputSVG(t *testing.T) {
-	tree, g, graph, err := initGraph()
-	if err != nil {
-		t.Fatalf("Error when initializing tree and graph.\nReason : %v", err)
-	}
-
-	err = RenderOutput("./test_render.svg", "svg", *tree, g, graph)
-	if err != nil {
-		t.Fatalf("Error when rendering tree to svg.\nReason : %v", err)
-	}
-
-	CloseGraph(g, graph)
-}
-
-func TestRenderOutputShell(t *testing.T) {
-	tree := initTree()
-
-	// Prevent shell output
-	// We only when error to be returned
+func TestOutputTree(t *testing.T) {
+	// Hide shell output
+	// Stderr while still be display
 	os.Stdout = nil
 
-	err := RenderOutput("", "shell", *tree, nil, nil)
+	err := OutputTree("", []byte{})
 	if err != nil {
-		t.Fatalf("Error when rendering tree to shell.\nReason : %v", err)
+		t.Fatalf("Error when executing OutputTree function\nReason : %v", err)
 	}
 }
 
-func TestRenderOutputJson(t *testing.T) {
-	tree := initTree()
-
-	err := RenderOutput("./test_render.json", "json", *tree, nil, nil)
+func TestOutputTreeToFile(t *testing.T) {
+	err := OutputTree("test.json", []byte{})
 	if err != nil {
-		t.Fatalf("Error when rendering tree to json.\nReason : %v", err)
+		t.Fatalf("Error when executing OutputTree function\nReason : %v", err)
+	}
+
+	err = os.Remove("test.json")
+	if err != nil {
+		t.Fatalf("Error when trying to remove the file created during this test ('test.json')")
+	}
+}
+
+func TestRenderTreeDot(t *testing.T) {
+	// Hide shell output
+	// Stderr while still be display
+	os.Stdout = nil
+
+	err := RenderTree("", "dot", tree.TreeNode{
+		Name: "test-root",
+		Id:   "123456789",
+	}, false)
+
+	if err != nil {
+		t.Fatalf("Error when executing RenderTree function\nReason : %v", err)
+	}
+}
+
+func TestRenderTreeDotColor(t *testing.T) {
+	// Hide shell output
+	// Stderr while still be display
+	os.Stdout = nil
+
+	err := RenderTree("", "dot", tree.TreeNode{
+		Name: "test-root",
+		Id:   "123456789",
+	}, true)
+
+	if err != nil {
+		t.Fatalf("Error when executing RenderTree function\nReason : %v", err)
+	}
+}
+
+func TestRenderTreeDotToFile(t *testing.T) {
+	err := RenderTree("test.dot", "dot", tree.TreeNode{
+		Name: "test-root",
+		Id:   "123456789",
+	}, false)
+
+	if err != nil {
+		t.Fatalf("Error when executing RenderTree function\nReason : %v", err)
+	}
+
+	err = os.Remove("test.dot")
+	if err != nil {
+		t.Fatalf("Error when trying to remove the file created during this test ('test.dot')")
+	}
+}
+
+func TestRenderTreeDotToFileColor(t *testing.T) {
+	err := RenderTree("test.dot", "dot", tree.TreeNode{
+		Name: "test-root",
+		Id:   "123456789",
+	}, true)
+
+	if err != nil {
+		t.Fatalf("Error when executing RenderTree function\nReason : %v", err)
+	}
+
+	err = os.Remove("test.dot")
+	if err != nil {
+		t.Fatalf("Error when trying to remove the file created during this test ('test.dot')")
+	}
+}
+
+func TestRenderTreeShell(t *testing.T) {
+	// Hide shell output
+	// Stderr while still be display
+	os.Stdout = nil
+
+	err := RenderTree("", "shell", tree.TreeNode{
+		Name: "test-root",
+		Id:   "123456789",
+	}, false)
+
+	if err != nil {
+		t.Fatalf("Error when executing RenderTree function\nReason : %v", err)
+	}
+}
+
+func TestRenderTreeShellColor(t *testing.T) {
+	// Hide shell output
+	// Stderr while still be display
+	os.Stdout = nil
+
+	err := RenderTree("", "shell", tree.TreeNode{
+		Name: "test-root",
+		Id:   "123456789",
+	}, true)
+
+	if err != nil {
+		t.Fatalf("Error when executing RenderTree function\nReason : %v", err)
+	}
+}
+
+func TestRenderTreeShellToFile(t *testing.T) {
+	err := RenderTree("test.txt", "shell", tree.TreeNode{
+		Name: "test-root",
+		Id:   "123456789",
+	}, false)
+
+	if err != nil {
+		t.Fatalf("Error when executing RenderTree function\nReason : %v", err)
+	}
+
+	err = os.Remove("test.txt")
+	if err != nil {
+		t.Fatalf("Error when trying to remove the file created during this test ('test.txt')")
+	}
+}
+
+func TestRenderTreeShellToFileColor(t *testing.T) {
+	err := RenderTree("test.txt", "shell", tree.TreeNode{
+		Name: "test-root",
+		Id:   "123456789",
+	}, true)
+
+	if err != nil {
+		t.Fatalf("Error when executing RenderTree function\nReason : %v", err)
+	}
+
+	err = os.Remove("test.txt")
+	if err != nil {
+		t.Fatalf("Error when trying to remove the file created during this test ('test.txt')")
+	}
+}
+
+func TestRenderTreeJson(t *testing.T) {
+	// Hide shell output
+	// Stderr while still be display
+	os.Stdout = nil
+
+	err := RenderTree("", "json", tree.TreeNode{
+		Name: "test-root",
+		Id:   "123456789",
+	}, false)
+
+	if err != nil {
+		t.Fatalf("Error when executing RenderTree function\nReason : %v", err)
+	}
+}
+
+func TestRenderTreeJsonColor(t *testing.T) {
+	// Hide shell output
+	// Stderr while still be display
+	os.Stdout = nil
+
+	err := RenderTree("", "json", tree.TreeNode{
+		Name: "test-root",
+		Id:   "123456789",
+	}, true)
+
+	if err != nil {
+		t.Fatalf("Error when executing RenderTree function\nReason : %v", err)
+	}
+}
+
+func TestRenderTreeJsonToFile(t *testing.T) {
+	err := RenderTree("test.json", "json", tree.TreeNode{
+		Name: "test-root",
+		Id:   "123456789",
+	}, false)
+
+	if err != nil {
+		t.Fatalf("Error when executing RenderTree function\nReason : %v", err)
+	}
+
+	err = os.Remove("test.json")
+	if err != nil {
+		t.Fatalf("Error when trying to remove the file created during this test ('test.json')")
+	}
+}
+
+func TestRenderTreeJsonToFileColor(t *testing.T) {
+	err := RenderTree("test.json", "json", tree.TreeNode{
+		Name: "test-root",
+		Id:   "123456789",
+	}, true)
+
+	if err != nil {
+		t.Fatalf("Error when executing RenderTree function\nReason : %v", err)
+	}
+
+	err = os.Remove("test.json")
+	if err != nil {
+		t.Fatalf("Error when trying to remove the file created during this test ('test.json')")
 	}
 }

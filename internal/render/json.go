@@ -2,29 +2,16 @@ package render
 
 import (
 	"encoding/json"
-	"os"
 
 	"github.com/Spartan0nix/zabbix-tree-cli/internal/tree"
 )
 
-// OutputAsJson is used to render a TreeNode to a file in json
-func OutputAsJson(path string, tree *tree.TreeNode) error {
+// OutputAsJson is used to render a TreeNode to a file in json.
+func OutputAsJson(tree *tree.TreeNode) ([]byte, error) {
 	b, err := json.Marshal(tree)
 	if err != nil {
-		return err
+		return nil, err
 	}
 
-	f, err := os.Create(path)
-	if err != nil {
-		return err
-	}
-
-	defer f.Close()
-
-	_, err = f.Write(b)
-	if err != nil {
-		return err
-	}
-
-	return nil
+	return b, nil
 }
