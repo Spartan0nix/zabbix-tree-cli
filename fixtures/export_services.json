@@ -1,0 +1,352 @@
+[
+    {
+        "serviceid": "",
+        "algorithm": "2",
+        "name": "Corp",
+        "sortorder": "0",
+        "weight": "0",
+        "propagation_rule": "0",
+        "propagation_value": "0"
+    },
+    {
+        "serviceid": "",
+        "algorithm": "2",
+        "name": "North Europe",
+        "sortorder": "0",
+        "weight": "0",
+        "propagation_rule": "0",
+        "propagation_value": "0",
+        "parents": [
+            {
+                "serviceid": "1",
+                "algorithm": "",
+                "name": "Corp",
+                "sortorder": ""
+            }
+        ]
+    },
+    {
+        "serviceid": "",
+        "algorithm": "2",
+        "name": "Wan",
+        "sortorder": "0",
+        "weight": "0",
+        "propagation_rule": "0",
+        "propagation_value": "0",
+        "parents": [
+            {
+                "serviceid": "2",
+                "algorithm": "",
+                "name": "North Europe",
+                "sortorder": ""
+            }
+        ]
+    },
+    {
+        "serviceid": "",
+        "algorithm": "2",
+        "name": "Site 1",
+        "sortorder": "0",
+        "weight": "0",
+        "propagation_rule": "0",
+        "propagation_value": "0",
+        "parents": [
+            {
+                "serviceid": "2",
+                "algorithm": "",
+                "name": "North Europe",
+                "sortorder": ""
+            }
+        ]
+    },
+    {
+        "serviceid": "",
+        "algorithm": "2",
+        "name": "Lan",
+        "sortorder": "0",
+        "weight": "0",
+        "propagation_rule": "0",
+        "propagation_value": "0",
+        "parents": [
+            {
+                "serviceid": "10",
+                "algorithm": "",
+                "name": "Site 1",
+                "sortorder": ""
+            }
+        ]
+    },
+    {
+        "serviceid": "",
+        "algorithm": "2",
+        "name": "App 1",
+        "sortorder": "0",
+        "weight": "0",
+        "propagation_rule": "0",
+        "propagation_value": "0",
+        "parents": [
+            {
+                "serviceid": "10",
+                "algorithm": "",
+                "name": "Site 1",
+                "sortorder": ""
+            }
+        ]
+    },
+    {
+        "serviceid": "",
+        "algorithm": "2",
+        "name": "App 3",
+        "sortorder": "0",
+        "weight": "0",
+        "propagation_rule": "0",
+        "propagation_value": "0",
+        "parents": [
+            {
+                "serviceid": "10",
+                "algorithm": "",
+                "name": "Site 1",
+                "sortorder": ""
+            }
+        ]
+    },
+    {
+        "serviceid": "",
+        "algorithm": "2",
+        "name": "Erp",
+        "sortorder": "0",
+        "weight": "0",
+        "propagation_rule": "0",
+        "propagation_value": "0",
+        "parents": [
+            {
+                "serviceid": "2",
+                "algorithm": "",
+                "name": "North Europe",
+                "sortorder": ""
+            }
+        ]
+    },
+    {
+        "serviceid": "",
+        "algorithm": "2",
+        "name": "Database",
+        "sortorder": "0",
+        "weight": "0",
+        "propagation_rule": "0",
+        "propagation_value": "0",
+        "parents": [
+            {
+                "serviceid": "5",
+                "algorithm": "",
+                "name": "Erp",
+                "sortorder": ""
+            }
+        ]
+    },
+    {
+        "serviceid": "",
+        "algorithm": "2",
+        "name": "Storage",
+        "sortorder": "0",
+        "weight": "0",
+        "propagation_rule": "0",
+        "propagation_value": "0",
+        "parents": [
+            {
+                "serviceid": "5",
+                "algorithm": "",
+                "name": "Erp",
+                "sortorder": ""
+            }
+        ]
+    },
+    {
+        "serviceid": "",
+        "algorithm": "2",
+        "name": "Frontend",
+        "sortorder": "0",
+        "weight": "0",
+        "propagation_rule": "0",
+        "propagation_value": "0",
+        "parents": [
+            {
+                "serviceid": "5",
+                "algorithm": "",
+                "name": "Erp",
+                "sortorder": ""
+            }
+        ]
+    },
+    {
+        "serviceid": "",
+        "algorithm": "2",
+        "name": "Backend",
+        "sortorder": "0",
+        "weight": "0",
+        "propagation_rule": "0",
+        "propagation_value": "0",
+        "parents": [
+            {
+                "serviceid": "5",
+                "algorithm": "",
+                "name": "Erp",
+                "sortorder": ""
+            }
+        ]
+    },
+    
+    {
+        "serviceid": "",
+        "algorithm": "2",
+        "name": "Site 2",
+        "sortorder": "0",
+        "weight": "0",
+        "propagation_rule": "0",
+        "propagation_value": "0",
+        "parents": [
+            {
+                "serviceid": "2",
+                "algorithm": "",
+                "name": "North Europe",
+                "sortorder": ""
+            }
+        ]
+    },
+    {
+        "serviceid": "",
+        "algorithm": "2",
+        "name": "Lan",
+        "sortorder": "0",
+        "weight": "0",
+        "propagation_rule": "0",
+        "propagation_value": "0",
+        "parents": [
+            {
+                "serviceid": "11",
+                "algorithm": "",
+                "name": "Site 2",
+                "sortorder": ""
+            }
+        ]
+    },
+    {
+        "serviceid": "",
+        "algorithm": "2",
+        "name": "Production Center 1",
+        "sortorder": "0",
+        "weight": "0",
+        "propagation_rule": "0",
+        "propagation_value": "0",
+        "parents": [
+            {
+                "serviceid": "11",
+                "algorithm": "",
+                "name": "Site 2",
+                "sortorder": ""
+            }
+        ]
+    },
+    {
+        "serviceid": "",
+        "algorithm": "2",
+        "name": "East Europe",
+        "sortorder": "0",
+        "weight": "0",
+        "propagation_rule": "0",
+        "propagation_value": "0",
+        "parents": [
+            {
+                "serviceid": "1",
+                "algorithm": "",
+                "name": "Corp",
+                "sortorder": ""
+            }
+        ]
+    },
+    {
+        "serviceid": "",
+        "algorithm": "2",
+        "name": "Lan",
+        "sortorder": "0",
+        "weight": "0",
+        "propagation_rule": "0",
+        "propagation_value": "0",
+        "parents": [
+            {
+                "serviceid": "16",
+                "algorithm": "",
+                "name": "East Europe",
+                "sortorder": ""
+            }
+        ]
+    },
+    {
+        "serviceid": "",
+        "algorithm": "2",
+        "name": "Wan",
+        "sortorder": "0",
+        "weight": "0",
+        "propagation_rule": "0",
+        "propagation_value": "0",
+        "parents": [
+            {
+                "serviceid": "16",
+                "algorithm": "",
+                "name": "East Europe",
+                "sortorder": ""
+            }
+        ]
+    },
+    {
+        "serviceid": "",
+        "algorithm": "2",
+        "name": "App 2",
+        "sortorder": "0",
+        "weight": "0",
+        "propagation_rule": "0",
+        "propagation_value": "0",
+        "parents": [
+            {
+                "serviceid": "16",
+                "algorithm": "",
+                "name": "East Europe",
+                "sortorder": ""
+            }
+        ]
+    },
+    {
+        "serviceid": "",
+        "algorithm": "2",
+        "name": "Production Center 2",
+        "sortorder": "0",
+        "weight": "0",
+        "propagation_rule": "0",
+        "propagation_value": "0",
+        "parents": [
+            {
+                "serviceid": "16",
+                "algorithm": "",
+                "name": "East Europe",
+                "sortorder": ""
+            }
+        ]
+    },
+    {
+        "serviceid": "",
+        "algorithm": "2",
+        "name": "Production Center 3",
+        "sortorder": "0",
+        "weight": "0",
+        "propagation_rule": "0",
+        "propagation_value": "0",
+        "parents": [
+            {
+                "serviceid": "16",
+                "algorithm": "",
+                "name": "East Europe",
+                "sortorder": ""
+            }
+        ]
+    }
+]

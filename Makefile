@@ -45,6 +45,13 @@ shell:
 shell-file:
 	go run main.go host-group shell --file build/render.shell.txt
 
+# - FIXTURES
+# export-services:
+# 	go run fixtures/service.go --url ${ZABBIX_URL} --user ${ZABBIX_USER} --password ${ZABBIX_PWD} --action export
+
+import-services:
+	go run fixtures/service.go --url http://localhost:4444/api_jsonrpc.php --user ${ZABBIX_USER} --password ${ZABBIX_PWD} --action import
+
 # - HELPER
 help:
 	go run main.go --help
