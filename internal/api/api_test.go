@@ -44,6 +44,10 @@ func TestAuthenticate(t *testing.T) {
 	if c.HostGroup.Client.Token == "" {
 		t.Fatal("No API token was found in the HostGroup service")
 	}
+
+	if c.Service.Client.Token == "" {
+		t.Fatal("No API token was found in the Service service")
+	}
 }
 
 func TestAuthenticateBadCredentials(t *testing.T) {
@@ -59,5 +63,16 @@ func TestAuthenticateBadPassword(t *testing.T) {
 
 	if err == nil {
 		t.Fatal("A nil error was returned.\nExpected an authentification error.")
+	}
+}
+
+func TestListChildServices(t *testing.T) {
+	services, err := ListChildServices(c, "0")
+	if err != nil {
+		t.Fatalf("Error when executing ListChildServices function.\nReason : %v", err)
+	}
+
+	if services == nil {
+		t.Fatalf("A nil slice pointer was returned instead of []*zabbixgosdk.ServiceGetResponse")
 	}
 }
