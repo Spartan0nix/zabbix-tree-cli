@@ -23,10 +23,11 @@ var rootCmd = &cobra.Command{
 }
 
 func init() {
-	hostGroupCmd.Flags().StringVarP(&File, "file", "f", "", "output to a file")
-	hostGroupCmd.Flags().BoolVar(&Color, "color", false, "enable colors in graph output")
-	hostGroupCmd.Flags().BoolVar(&Debug, "debug", false, "enable debug output during execution")
+	rootCmd.PersistentFlags().StringVarP(&File, "file", "f", "", "output to a file")
+	rootCmd.PersistentFlags().BoolVar(&Color, "color", false, "enable colors in graph output")
+	rootCmd.PersistentFlags().BoolVar(&Debug, "debug", false, "enable debug output during execution")
 	rootCmd.AddCommand(hostGroupCmd)
+	rootCmd.AddCommand(serviceCmd)
 	// Init the global logger
 	GlobalLogger = logging.NewLogger(logging.Warning)
 }
