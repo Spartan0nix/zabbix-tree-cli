@@ -12,7 +12,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// This command allow to interact with Zabbix HostGroups and runder a graphical output
+// This command allow to interact with Zabbix HostGroups and render a graphical output
 var hostGroupCmd = &cobra.Command{
 	Use:       "host-group [dot|json|shell]",
 	Short:     "Render a graph for host groups",
