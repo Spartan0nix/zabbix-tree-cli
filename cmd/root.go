@@ -16,7 +16,7 @@ var GlobalLogger *logging.Logger
 var rootCmd = &cobra.Command{
 	Use:           "zabbix-tree-cli",
 	Short:         "Render graphical output for certains part of Zabbix server.",
-	Long:          `This CLI tool is used to help administrator keeps track of their Zabbix Host Groups structure by rendering a graphical output (PNG, JPG, SVG, json, shell).`,
+	Long:          "This CLI tool is used to help administrator keeps track of their Zabbix structure by rendering a graphical output (dot, json, shell).",
 	Args:          cobra.NoArgs,
 	SilenceUsage:  true,
 	SilenceErrors: true,
