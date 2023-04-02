@@ -8,14 +8,8 @@ import (
 	"github.com/Spartan0nix/zabbix-tree-cli/internal/config"
 )
 
-const (
-	URL  = "http://localhost:4444/api_jsonrpc.php"
-	USER = "Admin"
-	PWD  = "zabbix"
-)
-
-func TestRunHostGroup(t *testing.T) {
-	runHostGroup(&config.Env{
+func TestRunService(t *testing.T) {
+	runService(&config.Env{
 		ZabbixUrl:  URL,
 		ZabbixUser: USER,
 		ZabbixPwd:  PWD,
@@ -23,9 +17,9 @@ func TestRunHostGroup(t *testing.T) {
 }
 
 // https://go.dev/talks/2014/testing.slide#23
-func TestRunHostGroupFailAuth(t *testing.T) {
+func TestRunServiceFailAuth(t *testing.T) {
 	if os.Getenv("BE_CRASHER") == "1" {
-		runHostGroup(&config.Env{
+		runService(&config.Env{
 			ZabbixUrl:  URL,
 			ZabbixUser: "random-user",
 			ZabbixPwd:  PWD,
@@ -35,7 +29,7 @@ func TestRunHostGroupFailAuth(t *testing.T) {
 	}
 
 	// Execute test in a subprocess
-	cmd := exec.Command(os.Args[0], "-test.run=TestRunHostGroupFailAuth")
+	cmd := exec.Command(os.Args[0], "-test.run=TestRunServiceFailAuth")
 	// Run the desired command when running test in suprocess
 	cmd.Env = append(cmd.Env, "BE_CRASHER=1")
 	err := cmd.Run()

@@ -12,38 +12,80 @@ down:
 # ------------------------------------------------
 # CLI commands
 # ------------------------------------------------
-# - DOT
-dot:
+# - HostGroup
+# -- DOT
+hostgroup-dot:
 	go run main.go host-group dot
 
-dot-file:
+hostgroup-dot-file:
 	go run main.go host-group dot --file build/render.dot.txt
 
-dot-color:
+hostgroup-dot-color:
 	go run main.go host-group dot --color
 
-dot-file-color:
+hostgroup-dot-file-color:
 	go run main.go host-group dot --file build/render.dot.txt --color
 
-svg:
+hostgroup-svg:
 	go run main.go host-group dot | dot -Tsvg > build/output.svg
 
-svg-color:
-	go run main.go host-group dot --color | dot -Tsvg > build/output.svg
+hostgroup-svg-color:
+	go run main.go host-group dot --color | dot -Tsvg > build/output-color.svg
 
-# - JSON
-json:
+# -- JSON
+hostgroup-json:
 	go run main.go host-group json
 
-json-file:
+hostgroup-json-file:
 	go run main.go host-group json --file build/render.json
 
-# - SHELL
-shell:
+# -- SHELL
+hostgroup-shell:
 	go run main.go host-group shell
 
-shell-file:
+hostgroup-shell-file:
 	go run main.go host-group shell --file build/render.shell.txt
+
+# - Service
+# -- DOT
+service-dot:
+	go run main.go service dot
+
+service-dot-file:
+	go run main.go service dot --file build/render.dot.txt
+
+service-dot-color:
+	go run main.go service dot --color
+
+service-dot-file-color:
+	go run main.go service dot --file build/render.dot.txt --color
+
+service-svg:
+	go run main.go service dot | dot -Tsvg > build/output.svg
+
+service-svg-color:
+	go run main.go service dot --color | dot -Tsvg > build/output-color.svg
+
+# -- JSON
+service-json:
+	go run main.go service json
+
+service-json-file:
+	go run main.go service json --file build/render.json
+
+# -- SHELL
+service-shell:
+	go run main.go service shell
+
+service-shell-file:
+	go run main.go service shell --file build/render.shell.txt
+
+# - FIXTURES
+# export-services:
+# 	go run fixtures/service.go --url ${ZABBIX_URL} --user ${ZABBIX_USER} --password ${ZABBIX_PWD} --action export
+
+import-services:
+	go run fixtures/service.go --url ${ZABBIX_URL} --user ${ZABBIX_USER} --password ${ZABBIX_PWD} --action import
 
 # - HELPER
 help:

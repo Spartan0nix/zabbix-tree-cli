@@ -12,10 +12,10 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// This command allow to interact with Zabbix HostGroups and render a graphical output
-var hostGroupCmd = &cobra.Command{
-	Use:       "host-group [dot|json|shell]",
-	Short:     "Render a graph for host groups",
+// This command allow to interact with Zabbix Services and render a graphical output
+var serviceCmd = &cobra.Command{
+	Use:       "service [dot|json|shell]",
+	Short:     "Render a graph for services",
 	ValidArgs: []string{"dot", "json", "shell"},
 	Args:      cobra.MatchAll(cobra.ExactArgs(1), cobra.OnlyValidArgs),
 	Run: func(cmd *cobra.Command, args []string) {
@@ -29,26 +29,19 @@ var hostGroupCmd = &cobra.Command{
 			os.Exit(1)
 		}
 
-		runHostGroup(env, args[0], File, Color)
+		runService(env, args[0], File, Color)
 	},
 }
 
-// RunHostGroup is the main entrypoint for the 'host-group' command.
+// runService is the main entrypoint for the 'host-group' command.
 // 1. Initialize the Zabbix API requirements
-// 2. Retrieve all HostGroups from the Zabbix Server
 // 3. Initialize the TreeNode requirements
-// 4. Generate a complete TreeNode for each groups
+// 4. Generate a complete TreeNode for each services
 // 5. Render the TreeNode using the given format
-func runHostGroup(env *config.Env, format string, file string, color bool) {
+func runService(env *config.Env, format string, file string, color bool) {
 	client, err := app.InitApi(env.ZabbixUrl, env.ZabbixUser, env.ZabbixPwd)
 	if err != nil {
 		GlobalLogger.Error("error when initializing zabbix client", fmt.Sprintf("reason : %v", err))
-		os.Exit(1)
-	}
-
-	groups, err := client.HostGroup.List()
-	if err != nil {
-		GlobalLogger.Error("error when retrieving the list of host groups", fmt.Sprintf("reason : %v", err))
 		os.Exit(1)
 	}
 
@@ -63,7 +56,7 @@ func runHostGroup(env *config.Env, format string, file string, color bool) {
 		Id:   hash,
 	}
 
-	err = t.GenerateHostGroupTree(groups, GlobalLogger)
+	err = t.GenerateServiceTree(client, GlobalLogger, "0")
 	if err != nil {
 		GlobalLogger.Error("error when generating the tree", fmt.Sprintf("reason : %v", err))
 		os.Exit(1)

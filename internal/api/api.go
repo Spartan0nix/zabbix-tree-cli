@@ -12,6 +12,7 @@ func InitService(url string) (*zabbixgosdk.ZabbixService, error) {
 
 	client.Auth.Client.Url = url
 	client.HostGroup.Client.Url = url
+	client.Service.Client.Url = url
 
 	if err := client.Auth.Client.CheckConnectivity(); err != nil {
 		return nil, err
@@ -43,6 +44,31 @@ func Authenticate(client *zabbixgosdk.ZabbixService, user string, password strin
 	}
 
 	client.HostGroup.Client.Token = token
+	client.Service.Client.Token = token
 
 	return nil
+}
+
+// ListChildServices is used to list all services associated with the given service
+func ListChildServices(client *zabbixgosdk.ZabbixService, parentId string) ([]*zabbixgosdk.ServiceGetResponse, error) {
+	res, err := client.Service.Get(&zabbixgosdk.ServiceGetParameters{
+		CommonGetParameters: zabbixgosdk.CommonGetParameters{
+			Output: []string{
+				"name",
+				"serviceid",
+			},
+		},
+		ParentIds: []string{
+			parentId,
+		},
+		SelectChildren: []string{
+			"serviceid",
+		},
+	})
+
+	if err != nil {
+		return nil, err
+	}
+
+	return res, nil
 }
