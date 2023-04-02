@@ -85,7 +85,7 @@ service-shell-file:
 # 	go run fixtures/service.go --url ${ZABBIX_URL} --user ${ZABBIX_USER} --password ${ZABBIX_PWD} --action export
 
 import-services:
-	go run fixtures/service.go --url http://localhost:4444/api_jsonrpc.php --user ${ZABBIX_USER} --password ${ZABBIX_PWD} --action import
+	go run fixtures/service.go --url ${ZABBIX_URL} --user ${ZABBIX_USER} --password ${ZABBIX_PWD} --action import
 
 # - HELPER
 help:
