@@ -35,10 +35,25 @@ For example :
 
 ### Fixtures (optional)
 
-A json export is available in the *fixtures* folder.
-This export will create a host (fixture-host) and the associates host groups to build an example structure.
+Export files are available in the *fixtures* folder.
 
-Using the *docker-compose.test.yml* stack combine with the export file can give you a good preview of the possibility available with this CLI tool.
+- Host Groups
+The *'zbx_export_hosts.json'* export will create a host (fixture-host) and the associate host groups to build an example structure since there is no direct export function for the host groups.
+
+- Service
+The *'export_services.json'* contains service object definitions used by the *'service.go'* script to create sample services.
+
+<u>Script usage :</u>
+```bash
+go run fixtures/service.go --url <ZABBIX-URL> --user <ZABBIX_USER> --password <ZABBIX_PWD> --action import
+```
+
+Or if the environment variables *"ZABBIX_URL"*, *"ZABBIX_USER"*, *"ZABBIX_PWD"* are defined :
+```bash
+make import-services
+```
+
+> Using the *docker-compose.test.yml* stack combine with the export files can give you a good preview of the possibilities available with this CLI tool.
 
 ### Required environment variables
 
@@ -115,20 +130,24 @@ $env:ZABBIX_PWD="some-zabbix-user-password"
 
 ### Run
 ```
-zabbix-tree-cli [command]
+This CLI tool is used to help administrator keeps track of their Zabbix structure by rendering a graphical output (dot, json, shell).
 
 Usage:
-   [command]
+  zabbix-tree-cli [command]
 
 Available Commands:
   completion  Generate the autocompletion script for the specified shell
   help        Help about any command
-  host-group  Render a Zabbix host groups graph.
+  host-group  Render a graph for host groups
+  service     Render a graph for services
 
 Flags:
-  -h, --help   help for this command
+      --color         enable colors in graph output
+      --debug         enable debug output during execution
+  -f, --file string   output to a file
+  -h, --help          help for zabbix-tree-cli
 
-Use " [command] --help" for more information about a command.
+Use "zabbix-tree-cli [command] --help" for more information about a command.
 ```
 
 ### Completion
