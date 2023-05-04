@@ -18,7 +18,10 @@ jobs:
       with:
         go-version: 1.19
 
-    - name: Initializa module dependencies
+    - name: Update git state
+      run: git remote update
+
+    - name: Initialize module dependencies
       run: go mod tidy
     
     - name: Build binaries
