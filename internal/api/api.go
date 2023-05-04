@@ -52,11 +52,9 @@ func Authenticate(client *zabbixgosdk.ZabbixService, user string, password strin
 // ListChildServices is used to list all services associated with the given service
 func ListChildServices(client *zabbixgosdk.ZabbixService, parentId string) ([]*zabbixgosdk.ServiceGetResponse, error) {
 	res, err := client.Service.Get(&zabbixgosdk.ServiceGetParameters{
-		CommonGetParameters: zabbixgosdk.CommonGetParameters{
-			Output: []string{
-				"name",
-				"serviceid",
-			},
+		Output: []string{
+			"name",
+			"serviceid",
 		},
 		ParentIds: []string{
 			parentId,
