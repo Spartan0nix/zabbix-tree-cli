@@ -46,6 +46,15 @@ func runHostGroup(env *config.Env, format string, file string, color bool) {
 		os.Exit(1)
 	}
 
+	// Release the Api token at the end of the command
+	defer func() {
+		err := client.Logout()
+		if err != nil {
+			GlobalLogger.Error("error when logging out of the Zabbix api", fmt.Sprintf("reason : %v", err))
+			os.Exit(1)
+		}
+	}()
+
 	groups, err := client.HostGroup.List()
 	if err != nil {
 		GlobalLogger.Error("error when retrieving the list of host groups", fmt.Sprintf("reason : %v", err))

@@ -45,6 +45,15 @@ func runService(env *config.Env, format string, file string, color bool) {
 		os.Exit(1)
 	}
 
+	// Release the Api token at the end of the command
+	defer func() {
+		err := client.Logout()
+		if err != nil {
+			GlobalLogger.Error("error when logging out of the Zabbix api", fmt.Sprintf("reason : %v", err))
+			os.Exit(1)
+		}
+	}()
+
 	hash, err := tree.GenerateNewHash(30)
 	if err != nil {
 		GlobalLogger.Error("error when generating hash for 'root' node", fmt.Sprintf("reason : %v", err))

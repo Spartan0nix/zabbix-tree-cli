@@ -1,5 +1,7 @@
 github.com/Spartan0nix/zabbix-go-sdk/v2 v2.0.0 h1:9y8gp7nLg6yiWEkJ4rFonjwoi4868bDNzeLyH1lRBy8=
 github.com/Spartan0nix/zabbix-go-sdk/v2 v2.0.0/go.mod h1:2EhMWD2Yo1r53RXvl0xZB5cvCpraX7s9iba9nMX3hw0=
+github.com/Spartan0nix/zabbix-go-sdk/v2 v2.0.2 h1:ErEsnZiHXwYaPOpb4O+PSqCFeJp5WV7e3qie+vkO+xY=
+github.com/Spartan0nix/zabbix-go-sdk/v2 v2.0.2/go.mod h1:2EhMWD2Yo1r53RXvl0xZB5cvCpraX7s9iba9nMX3hw0=
 github.com/cpuguy83/go-md2man/v2 v2.0.2/go.mod h1:tgQtvFlXSQOSOSIRvRPT7W67SCa46tRHOmNcaadrF8o=
 github.com/inconshreveable/mousetrap v1.0.1/go.mod h1:vpF70FUmC8bwa3OWnCshd2FqLfsEA9PFc4w1p2J65bw=
 github.com/inconshreveable/mousetrap v1.1.0 h1:wN+x4NVGpMsO7ErUn/mUI3vEoE6Jt13X2s0bqwp9tc8=

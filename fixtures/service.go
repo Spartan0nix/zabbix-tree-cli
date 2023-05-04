@@ -38,21 +38,19 @@ func export(service *zabbixgosdk.ZabbixService) error {
 			"operator",
 			"value",
 		},
-		CommonGetParameters: zabbixgosdk.CommonGetParameters{
-			Output: []string{
-				"algorithm",
-				"name",
-				"sortorder",
-				"weight",
-				"propagation_rule",
-				"propagation_value",
-			},
-			Sortfield: []string{
-				"serviceid",
-			},
-			SortOrder: []string{
-				"ASC",
-			},
+		Output: []string{
+			"algorithm",
+			"name",
+			"sortorder",
+			"weight",
+			"propagation_rule",
+			"propagation_value",
+		},
+		SortField: []string{
+			"serviceid",
+		},
+		SortOrder: []string{
+			"ASC",
 		},
 	})
 	if err != nil {
@@ -102,13 +100,12 @@ func _import(service *zabbixgosdk.ZabbixService) error {
 			}
 
 			res, err := service.Service.Get(&zabbixgosdk.ServiceGetParameters{
-				CommonGetParameters: zabbixgosdk.CommonGetParameters{
-					Search: map[string][]string{
-						"name": parentsName,
-					},
-					SearchWildcardsEnabled: true,
+				Search: map[string][]string{
+					"name": parentsName,
 				},
-			})
+				SearchWildcardsEnabled: true,
+			},
+			)
 
 			if err != nil {
 				return err
